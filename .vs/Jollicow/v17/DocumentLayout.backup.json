@@ -1,0 +1,203 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\viewcomponents\\foodcardcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:viewcomponents\\foodcardcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\views\\menu\\menu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:views\\menu\\menu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\wwwroot\\css\\menu.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:wwwroot\\css\\menu.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\models\\dishesmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:models\\dishesmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\global.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:global.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|c:\\users\\admin\\onedrive\\documents\\codinghw\\webnc\\webl\\jollicow\\controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02B7E551-2848-4B07-85CA-515C6F247D42}|Jollicow.csproj|solutionrelative:controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FoodCardComponent.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\ViewComponents\\FoodCardComponent.cs",
+              "RelativeDocumentMoniker": "ViewComponents\\FoodCardComponent.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\ViewComponents\\FoodCardComponent.cs",
+              "RelativeToolTip": "ViewComponents\\FoodCardComponent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T04:10:24.73Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Menu.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Views\\Menu\\Menu.cshtml",
+              "RelativeDocumentMoniker": "Views\\Menu\\Menu.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Views\\Menu\\Menu.cshtml",
+              "RelativeToolTip": "Views\\Menu\\Menu.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-30T06:24:28.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DishesModels.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Models\\DishesModels.cs",
+              "RelativeDocumentMoniker": "Models\\DishesModels.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Models\\DishesModels.cs",
+              "RelativeToolTip": "Models\\DishesModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T03:19:04.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "global.json",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\global.json",
+              "RelativeDocumentMoniker": "global.json",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\global.json",
+              "RelativeToolTip": "global.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-30T07:36:00.161Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-30T07:35:56.812Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "menu.css",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\wwwroot\\css\\menu.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\menu.css",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\wwwroot\\css\\menu.css",
+              "RelativeToolTip": "wwwroot\\css\\menu.css",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAAACMAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-30T07:10:40.561Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-30T06:40:35.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-30T06:26:21.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-30T06:26:19.872Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MenuController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Controllers\\MenuController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MenuController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Controllers\\MenuController.cs",
+              "RelativeToolTip": "Controllers\\MenuController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T06:24:17.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Documents\\CodingHW\\WebNC\\WebL\\Jollicow\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T06:23:36.293Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

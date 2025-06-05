@@ -1,0 +1,41 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+  background: #fff !important;
+}
+
+body {
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    font-family: SVN-Arial;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+}
+
+.logo {
+    font-family: SVN-Aguda;
+    font-weight: bold;
+    margin:0;
+    background: linear-gradient(to right, #FF4141, #FDED40);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; /* cho trình duyệt hỗ trợ */
+    color: transparent;
+}

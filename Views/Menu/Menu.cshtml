@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <div class="body-container">
+        <img src="~/lib/images/banner2.png" alt="Banner" width="100%" height="164" style="object-fit: cover; border-radius: 6px"/>
+
+        <div class="scroll-slider">
+            <button class="slider-btn">Đồ nước</button>
+            <button class="slider-btn">Đồ khô</button>
+            <button class="slider-btn">Lẩu</button>
+            <button class="slider-btn">Đồ chiên</button>
+            <button class="slider-btn">Nước uống</button>
+            <button class="slider-btn">Đồ ăn nhẹ</button>
+        </div>
+
+        
+    </div>
+}
+
+<script>
+    const track = document.querySelector('.slider-track');
+    const btnCount = document.querySelectorAll('.slider-btn').length;
+    const btnWidth = 90; // min-width + gap approx
+    let index = 0;
+
+    setInterval(() => {
+      index++;
+      if (index > btnCount - 3) { // giả sử hiển thị 3 button 1 lúc
+        index = 0;
+      }
+      track.style.transform = `translateX(-${index * btnWidth}px)`;
+    }, 2000);
+</script>
