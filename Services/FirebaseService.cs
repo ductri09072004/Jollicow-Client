@@ -16,6 +16,9 @@ public class FirebaseService
             });
     }
 
+
+    // Dishes
+
     public async Task AddDishAsync(string name, decimal price, string image, string status)
     {
         await _client
@@ -45,6 +48,20 @@ public class FirebaseService
 
         return dishes.Select(d => d.Object).ToList();
     }
+
+    public async Task<DishesModels?> GetDishByIdAsync(string id)
+    {
+        var dishes = await _client
+            .Child("Menus")
+            .OnceAsync<DishesModels>();
+
+        return dishes
+            .Select(item => item.Object)
+            .FirstOrDefault(d => d.id_dishes == id);
+    }
+
+
+    // Category
 
     public async Task<List<CategoriesModel>> GetAllCategoriesAsync()
     {

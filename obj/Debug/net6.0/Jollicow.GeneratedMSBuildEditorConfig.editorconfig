@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Menu/DishDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxEaXNoRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Menu/Menu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxNZW51LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

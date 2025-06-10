@@ -1,0 +1,476 @@
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = null;
+}
+
+@model DishesModels
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    .back-button {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 1000;
+        background: #E31837;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+        background: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-button i {
+        font-size: 20px;
+        color: #333;
+    }
+
+    .dish-info {
+        padding: 20px;
+    }
+
+    .dish-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .dish-price {
+        font-size: 20px;
+        color: #E31837;
+        font-weight: 600;
+        margin-bottom: 16px;
+    }
+
+    .option-section {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #E9E9E9;
+    }
+
+    .option-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 12px;
+    }
+
+    .option-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .option-item {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .option-item.selected {
+        background-color: #E31837;
+        color: white;
+        border-color: #E31837;
+    }
+
+    .option-item:hover {
+        border-color: #E31837;
+    }
+
+    .toppings-section {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #E9E9E9;
+    }
+
+    .toppings-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 12px;
+    }
+
+    .topping-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #E9E9E9;
+    }
+
+    .topping-item:last-child {
+        border-bottom: none;
+    }
+
+    .topping-name {
+        color: #666;
+    }
+
+    .topping-price {
+        color: #E31837;
+        font-weight: 500;
+    }
+
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .checkbox-wrapper input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #E31837;
+    }
+
+    .note-section {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #E9E9E9;
+    }
+
+    .note-input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        resize: none;
+        font-family: inherit;
+    }
+
+    .note-input:focus {
+        outline: none;
+        border-color: #E31837;
+    }
+
+    .cart-button {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 16px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #E9E9E9;
+    }
+
+    .cart-button button {
+        background: #E31837;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .cart-button button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+    }
+
+    .total-price {
+        font-size: 20px;
+        font-weight: 600;
+        color: #E31837;
+    }
+
+    .main-content {
+        padding-bottom: 80px;
+        /* Space for fixed cart button */
+    }
+
+    .quantity-section {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #E9E9E9;
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+    }
+
+    .quantity-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .quantity-btn {
+        width: 28px;
+        height: 28px;
+        border: none;
+        background: #E31837;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .quantity-btn:disabled {
+        color: #ccc;
+        cursor: not-allowed;
+    }
+
+    .quantity-input {
+        width: 42px;
+        height: 28px;
+        text-align: center;
+        border: 1px solid #E9E9E9;
+        border-radius: 8px;
+        padding: 4px;
+        font-size: 16px;
+    }
+
+    .quantity-input:focus {
+        outline: none;
+        border-color: #E31837;
+    }
+</style>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Jollicow</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Jollicow.styles.css" asp-append-version="true" />
+</head>
+
+<body class="m-0 p-0 w-100 gap-0">
+    <button class="back-button" onclick="goBack()">
+        <i class="bi bi-x" style="color: white; font-size: 25px;"></i>
+    </button>
+    <div class="main-content">
+        <img src="@Model.image" alt="Hình ảnh món ăn" style="width: 100%; height: 20%; object-fit: cover;" />
+        <div class="d-flex flex-column m-0 p-0" style="padding: 12px;">
+            <div class="dish-info">
+                <h1 class="dish-name fw-bold" style="font-size: 16px;">@Model.name</h1>
+                <div class="dish-price">@(Model.price.ToString("N0")) đ</div>
+
+                <div class="option-section">
+                    <h2 class="option-title">Kích thước</h2>
+                    <div class="option-group" id="sizeGroup">
+                        <div class="option-item" data-price="0">Nhỏ</div>
+                        <div class="option-item" data-price="10000">Vừa (+10.000đ)</div>
+                        <div class="option-item" data-price="20000">Lớn (+20.000đ)</div>
+                    </div>
+
+                    <h2 class="option-title">Độ cay</h2>
+                    <div class="option-group" id="spicyGroup">
+                        <div class="option-item">Không cay</div>
+                        <div class="option-item">Cay nhẹ</div>
+                        <div class="option-item">Cay nhiều</div>
+                    </div>
+                </div>
+
+                <div class="toppings-section">
+                    <h2 class="toppings-title">Món kèm</h2>
+                    <div class="topping-item">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="cheese" name="topping" data-price="15000">
+                            <label for="cheese" class="topping-name">Thêm phô mai</label>
+                        </div>
+                        <span class="topping-price">+15.000đ</span>
+                    </div>
+                    <div class="topping-item">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="bacon" name="topping" data-price="25000">
+                            <label for="bacon" class="topping-name">Thêm thịt xông khói</label>
+                        </div>
+                        <span class="topping-price">+25.000đ</span>
+                    </div>
+                    <div class="topping-item">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="mushrooms" name="topping" data-price="12000">
+                            <label for="mushrooms" class="topping-name">Thêm nấm</label>
+                        </div>
+                        <span class="topping-price">+12.000đ</span>
+                    </div>
+                    <div class="topping-item">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="sauce" name="topping" data-price="5000">
+                            <label for="sauce" class="topping-name">Thêm sốt</label>
+                        </div>
+                        <span class="topping-price">+5.000đ</span>
+                    </div>
+                </div>
+
+                <div class="quantity-section">
+                    <div class="quantity-title">Số lượng</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="decrementQuantity()" id="decrementBtn"
+                            style="color:#fff; font-size: 16px;">-</button>
+                        <input type="number" class="quantity-input" style="font-size: 12px;" value="1" min="1" max="99"
+                            id="quantityInput" onchange="validateQuantity()">
+                        <button class="quantity-btn" onclick="incrementQuantity()" id="incrementBtn"
+                            style="color:#fff; font-size: 16px;">+</button>
+                    </div>
+                </div>
+
+                <div class=" note-section">
+                    <h2 class="option-title">Ghi chú</h2>
+                    <textarea class="note-input" rows="3"
+                        placeholder="Ghi chú cho nhân viên, có thể để trống..."></textarea>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-button">
+        <div class="total-price" id="totalPrice">@(Model.price.ToString("N0")) đ</div>
+        <button onclick="addToCart()">
+            <i class="bi bi-cart-plus"></i>
+            Thêm vào giỏ
+        </button>
+    </div>
+
+    <script>
+        let basePrice = @Model.price;
+        let selectedSizePrice = 0;
+        let selectedToppings = new Set();
+        let quantity = 1;
+
+        function updateTotalPrice() {
+            const toppingsTotal = Array.from(selectedToppings).reduce((sum, price) => sum + price, 0);
+            const total = (basePrice + selectedSizePrice + toppingsTotal) * quantity;
+            document.getElementById('totalPrice').textContent = total.toLocaleString() + ' đ';
+        }
+
+        function validateQuantity() {
+            const input = document.getElementById('quantityInput');
+            let value = parseInt(input.value);
+
+            if (isNaN(value) || value < 1) {
+                value = 1;
+            } else if (value > 99) {
+                value = 99;
+            }
+
+            input.value = value;
+            quantity = value;
+            updateTotalPrice();
+        }
+
+        function incrementQuantity() {
+            const input = document.getElementById('quantityInput');
+            let value = parseInt(input.value);
+            if (value < 99) {
+                input.value = value + 1;
+                quantity = value + 1;
+                updateTotalPrice();
+            }
+        }
+
+        function decrementQuantity() {
+            const input = document.getElementById('quantityInput');
+            let value = parseInt(input.value);
+            if (value > 1) {
+                input.value = value - 1;
+                quantity = value - 1;
+                updateTotalPrice();
+            }
+        }
+
+        // Size selection
+        const sizeGroup = document.getElementById('sizeGroup');
+        const sizeOptions = sizeGroup.querySelectorAll('.option-item');
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedSizePrice = parseInt(option.dataset.price);
+                updateTotalPrice();
+            });
+        });
+
+        // Spicy selection
+        const spicyGroup = document.getElementById('spicyGroup');
+        const spicyOptions = spicyGroup.querySelectorAll('.option-item');
+        spicyOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                spicyOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // Toppings selection
+        document.querySelectorAll('input[name="topping"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const price = parseInt(e.target.dataset.price);
+                if (e.target.checked) {
+                    selectedToppings.add(price);
+                } else {
+                    selectedToppings.delete(price);
+                }
+                updateTotalPrice();
+            });
+        });
+
+        function addToCart() {
+            // Get selected options
+            const size = document.querySelector('#sizeGroup .selected')?.textContent || 'Nhỏ';
+            const spicy = document.querySelector('#spicyGroup .selected')?.textContent || 'Không cay';
+            const note = document.querySelector('.note-input').value;
+            const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked'))
+                .map(cb => cb.nextElementSibling.textContent);
+            const quantity = parseInt(document.getElementById('quantityInput').value);
+
+            // Here you would typically send this data to your backend
+            console.log({
+                size,
+                spicy,
+                note,
+                toppings,
+                quantity,
+                totalPrice: document.getElementById('totalPrice').textContent
+            });
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>

@@ -29,7 +29,7 @@ namespace Jollicow.Controllers
             var allCategories = await firebaseService.GetAllCategoriesAsync();
 
             // Xử lý đường dẫn
-            if (string.IsNullOrEmpty(id_table) || string.IsNullOrEmpty(restaurant_id) || string.IsNullOrEmpty(id_category))
+            if (string.IsNullOrEmpty(id_table) || string.IsNullOrEmpty(restaurant_id))
             {
                 _logger.LogWarning("Missing parameters: id_table={IdTable}, restaurant_id={IdRestaurant}", id_table, restaurant_id);
                 return BadRequest("Thiếu thông tin.");
@@ -100,6 +100,22 @@ namespace Jollicow.Controllers
                 ViewBag.Error = "Đã xảy ra lỗi khi kết nối tới hệ thống.";
                 return View("Error");
             }
+        }
+
+        [HttpGet("/menu/dish")]
+        public async Task<IActionResult> DishDetail(string id_dishes)
+        {
+            var firebaseService = new FirebaseService();
+            var dish = await firebaseService.GetDishByIdAsync(id_dishes);
+
+            _logger.LogInformation("Dish found: {@Dish}", dish);
+
+            if (dish == null)
+            {
+                return NotFound();
+            }
+
+            return View(dish);
         }
     }
 }

@@ -10,25 +10,28 @@
             style="object-fit: cover; border-radius: 6px" />
 
         <div class="scroll-slider">
-             @foreach (var cate in Model.Categories)
-    {
-         var isActive = Model.SelectedCategoryID == cate.id_category ? "slider-btn-active" : "slider-btn";
-        <a style="text-decoration: none;" href="@Url.Action("Menu", new { id_table = Model.IdTable, restaurant_id = Model.RestaurantId, id_category = cate.id_category })">
-            <button class="@isActive">@cate.name</button>
-        </a>
-    }
+            @foreach (var cate in Model.Categories)
+            {
+                var isActive = Model.SelectedCategoryID == cate.id_category ? "slider-btn-active" : "slider-btn";
+                <a style="text-decoration: none;"
+                    href="@Url.Action("Menu", new { id_table = Model.IdTable, restaurant_id = Model.RestaurantId, id_category = cate.id_category })">
+                    <button class="@isActive">@cate.name</button>
+                </a>
+            }
         </div>
 
         <div class="dish-list d-flex flex-column gap-3 mb-2">
             @foreach (var dish in Model.Dishes)
             {
-                @await Component.InvokeAsync("DishCard", new {
+                <a href="@Url.Action("DishDetail", new { id_dishes = dish.id_dishes })" style="text-decoration: none;">
+                    @await Component.InvokeAsync("DishCard", new {
 
-                name = dish.name,
-                price = dish.price,
-                image = dish.image,
-                status = dish.status
-                    })
+                    name = dish.name,
+                        price = dish.price,
+                        image = dish.image,
+                        status = dish.status
+                            })
+        </a>
                 }
     </div>
 
