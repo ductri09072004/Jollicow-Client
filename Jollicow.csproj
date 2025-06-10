@@ -10,4 +10,9 @@
     <None Include="wwwroot\lib\svg\Bill.svg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
+    <PackageReference Include="FirebaseDatabase.net" Version="5.0.0" />
+  </ItemGroup>
+
 </Project>

@@ -53,6 +53,27 @@
     align-items: center;
     min-width: 108px;
     height: 36px;
+    border: 1px solid #D7D7D7;
+    background-color: #fff;
+    color: #5D5D5D;
+    border-radius: 16px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.slider-btn-active {
+    line-height: 2px;
+    padding: 0;
+    margin: 0;
+    font-family: SVN-Lobster;
+    font-size: 16px;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    min-width: 108px;
+    height: 36px;
     border: 1px solid #FF4141;
     background-color: #fff;
     color: #5D5D5D;

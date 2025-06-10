@@ -25,3 +25,11 @@ C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\obj\Debug\net6.0\
 C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\obj\Debug\net6.0\Jollicow.genruntimeconfig.cache
 C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\obj\Debug\net6.0\Jollicow.csproj.AssemblyReference.cache
 C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\bin\Debug\net6.0\ref\Jollicow.dll
+C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\bin\Debug\net6.0\libman.json
+C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\bin\Debug\net6.0\DotNetEnv.dll
+C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\bin\Debug\net6.0\Firebase.dll
+C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\bin\Debug\net6.0\LiteDB.dll
+C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\bin\Debug\net6.0\Sprache.dll
+C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\bin\Debug\net6.0\System.Reactive.dll
+C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\obj\Debug\net6.0\Jollicow.csproj.CopyComplete
