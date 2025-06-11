@@ -1,0 +1,9 @@
+{
+    "build": {
+      "command": "dotnet publish Jollicow.csproj -c Release -o out"
+    },
+    "start": {
+      "command": "dotnet out/Jollicow.dll"
+    }
+  }
+  
