@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <SdkVersion>6.0.413</SdkVersion>
   </PropertyGroup>
 
   <ItemGroup>
