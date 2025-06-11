@@ -23,7 +23,8 @@
         <div class="dish-list d-flex flex-column gap-3 mb-2">
             @foreach (var dish in Model.Dishes)
             {
-                <a href="@Url.Action("DishDetail", new { id_dishes = dish.id_dishes })" style="text-decoration: none;">
+                <a href="@Url.Action("DishDetail", new { id_table = Model.IdTable, restaurant_id = Model.RestaurantId, id_dishes = dish.id_dishes })"
+                    style="text-decoration: none;">
                     @await Component.InvokeAsync("DishCard", new {
 
                     name = dish.name,

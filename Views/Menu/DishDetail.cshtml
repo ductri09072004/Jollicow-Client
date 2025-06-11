@@ -373,6 +373,21 @@
         let selectedToppings = new Set();
         let quantity = 1;
 
+        // Function to get cart total from localStorage
+        function getCartTotal() {
+            return parseInt(localStorage.getItem('cartTotal') || '0');
+        }
+
+        // Function to update cart total in localStorage and navbar
+        function updateCartTotalFromItems() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            const total = cartItems.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+            const cartTotalElement = document.getElementById('cartTotalPrice');
+            if (cartTotalElement) {
+                cartTotalElement.textContent = total.toLocaleString('vi-VN') + 'đ';
+            }
+        }
+
         function updateTotalPrice() {
             const toppingsTotal = Array.from(selectedToppings).reduce((sum, price) => sum + price, 0);
             const total = (basePrice + selectedSizePrice + toppingsTotal) * quantity;
@@ -458,16 +473,34 @@
                 .map(cb => cb.nextElementSibling.textContent);
             const quantity = parseInt(document.getElementById('quantityInput').value);
 
-            // Here you would typically send this data to your backend
-            console.log({
+            // Calculate total price for this item
+            const toppingsTotal = Array.from(selectedToppings).reduce((sum, price) => sum + price, 0);
+            const itemTotal = (basePrice + selectedSizePrice + toppingsTotal) * quantity;
+
+            // Store cart item details
+            const cartItem = {
+                id: '@Model.id_dishes',
+                name: '@Model.name',
                 size,
                 spicy,
                 note,
                 toppings,
                 quantity,
-                totalPrice: document.getElementById('totalPrice').textContent
-            });
+                price: itemTotal
+            };
+
+            // Get existing cart items or initialize empty array
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            cartItems.push(cartItem);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            // ✅ Now update UI cart total AFTER saving to localStorage
+            updateCartTotalFromItems();
+
+            // Show success message
+            alert('Đã thêm vào giỏ hàng!');
         }
+
 
         function goBack() {
             window.history.back();

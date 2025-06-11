@@ -103,8 +103,16 @@ namespace Jollicow.Controllers
         }
 
         [HttpGet("/menu/dish")]
-        public async Task<IActionResult> DishDetail(string id_dishes)
+        public async Task<IActionResult> DishDetail(string id_table, string restaurant_id, string id_dishes)
         {
+
+            // Xử lý đường dẫn
+            if (string.IsNullOrEmpty(id_table) || string.IsNullOrEmpty(restaurant_id) || string.IsNullOrEmpty(id_dishes))
+            {
+                _logger.LogWarning("Missing parameters: id_table={IdTable}, restaurant_id={IdRestaurant}, id_dishes={IdDishes}", id_table, restaurant_id, id_dishes);
+                return BadRequest("Thiếu thông tin.");
+            }
+
             var firebaseService = new FirebaseService();
             var dish = await firebaseService.GetDishByIdAsync(id_dishes);
 
