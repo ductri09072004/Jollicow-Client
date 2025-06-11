@@ -1,0 +1,83 @@
+﻿.cart-element {
+    padding: 6px 12px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #FF4141, #FDED40);
+    border-radius: 12px;
+    min-width: auto;
+    max-width: 142px;
+}
+
+    .cart-element p {
+        margin: 0;
+        color: white;
+        font-size: 16px;
+        font-family: SVN-Aguda;
+        font-weight: bold;
+    }
+
+.body-container {
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.scroll-slider {
+    display: flex;
+    overflow-x: auto; 
+    gap: 10px;
+    padding: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding:0 ;
+}
+
+    .scroll-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+.slider-btn {
+    line-height: 2px;
+    padding: 0;
+    margin: 0;
+    font-family: SVN-Lobster;
+    font-size: 16px;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    min-width: 108px;
+    height: 36px;
+    border: 1px solid #D7D7D7;
+    background-color: #fff;
+    color: #5D5D5D;
+    border-radius: 16px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.slider-btn-active {
+    line-height: 2px;
+    padding: 0;
+    margin: 0;
+    font-family: SVN-Lobster;
+    font-size: 16px;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    min-width: 108px;
+    height: 36px;
+    border: 1px solid #FF4141;
+    background-color: #fff;
+    color: #5D5D5D;
+    border-radius: 16px;
+    cursor: pointer;
+    user-select: none;
+}

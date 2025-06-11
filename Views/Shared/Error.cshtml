@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Lỗi truy cập";
+}
+
+<h1 class="text-danger">Đã xảy ra lỗi</h1>
+
+<p class="text-muted">
+    @(ViewBag.Error ?? "Đã xảy ra sự cố không xác định. Vui lòng thử lại sau.")
+</p>
+
+<a href="/" class="btn btn-danger mt-3">Quay lại trang chủ</a>

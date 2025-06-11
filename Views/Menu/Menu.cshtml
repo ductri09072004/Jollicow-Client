@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model MenuViewModel
+
+@{
+    <div class="body-container">
+        <img src="~/lib/images/banner2.png" alt="Banner" width="100%" height="164"
+            style="object-fit: cover; border-radius: 6px" />
+
+        <div class="scroll-slider">
+            @foreach (var cate in Model.Categories)
+            {
+                var isActive = Model.SelectedCategoryID == cate.id_category ? "slider-btn-active" : "slider-btn";
+                <a style="text-decoration: none;"
+                    href="@Url.Action("Menu", new { id_table = Model.IdTable, restaurant_id = Model.RestaurantId, id_category = cate.id_category })">
+                    <button class="@isActive">@cate.name</button>
+                </a>
+            }
+        </div>
+
+        <div class="dish-list d-flex flex-column gap-3 mb-2">
+            @foreach (var dish in Model.Dishes)
+            {
+                <a href="@Url.Action("DishDetail", new { id_table = Model.IdTable, restaurant_id = Model.RestaurantId, id_dishes = dish.id_dishes })"
+                    style="text-decoration: none;">
+                    @await Component.InvokeAsync("DishCard", new {
+
+                    name = dish.name,
+                        price = dish.price,
+                        image = dish.image,
+                        status = dish.status
+                            })
+        </a>
+                }
+    </div>
+
+</div>
+}
+
+<script>
+    const track = document.querySelector('.slider-track');
+    const btnCount = document.querySelectorAll('.slider-btn').length;
+    const btnWidth = 90; // min-width + gap approx
+    let index = 0;
+
+    setInterval(() => {
+        index++;
+        if (index > btnCount - 3) { // giả sử hiển thị 3 button 1 lúc
+            index = 0;
+        }
+        track.style.transform = `translateX(-${index * btnWidth}px)`;
+    }, 2000);
+</script>

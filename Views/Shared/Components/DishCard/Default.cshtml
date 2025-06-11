@@ -1,0 +1,23 @@
+@model DishesModels
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+<div class="dish-card d-flex align-items-start w-100 gap-3"
+    style="height: 76px; gap: 12px; background-color: transparent;">
+    <div class="dish-image overflow-hidden"
+        style="width: 76px; height: 76px; border-radius: 6px; box-shadow: 0 0px 10.3px 0 rgba(0, 0, 0, 0.25);">
+        <img src="@Model.image" alt="@Model.name" class="img-fluid w-100" style="height: 100%; object-fit: cover;">
+    </div>
+
+    <div class="dish-content d-flex flex-column justify-content-between align-items-end flex-grow-1 h-100">
+        <div class="dish-info d-flex flex-column w-100" style="gap: 2px;">
+            <h3 class="dish-name fs-6 fw-bold mb-0" style="color: #3F4143;">@Model.name</h3>
+            <div class="dish-price" style="color: #5D5D5D; font-size: 12px;">@(Model.price.ToString("N0"))
+            </div>
+        </div>
+        <button class="btn d-flex justify-content-center align-items-center m-0 p-0 border-0"
+            style="width: 24px; height: 24px; background-color: #E31837; border-radius: 6px;">
+            <i class="bi bi-plus text-white fs-6"></i>
+        </button>
+    </div>
+</div>
