@@ -2,17 +2,21 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0.413 AS build
 WORKDIR /src
 
-# Copy csproj and restore dependencies
-COPY ["Jollicow.csproj", "./"]
-RUN dotnet restore
+# Copy the project file first
+COPY ["Jollicow.csproj", "."]
+
+# Restore dependencies
+RUN dotnet restore "Jollicow.csproj" --no-cache
 
 # Copy the rest of the code
 COPY . .
+
+# Build the application
 RUN dotnet build "Jollicow.csproj" -c Release -o /app/build
 
 # Publish stage
 FROM build AS publish
-RUN dotnet publish "Jollicow.csproj" -c Release -o /app/publish
+RUN dotnet publish "Jollicow.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Final stage
 FROM mcr.microsoft.com/dotnet/aspnet:6.0.413 AS final
