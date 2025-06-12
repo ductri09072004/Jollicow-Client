@@ -49,6 +49,17 @@ public class FirebaseService
         return dishes.Select(d => d.Object).ToList();
     }
 
+    public async Task<List<DishesModels>> GetDishesByCategoryAsync(string categoryId)
+    {
+        var dishes = await _client
+            .Child("Menus")
+            .OrderBy("id_category")
+            .EqualTo(categoryId)
+            .OnceAsync<DishesModels>();
+
+        return dishes.Select(d => d.Object).ToList();
+    }
+
     public async Task<DishesModels?> GetDishByIdAsync(string id)
     {
         var dishes = await _client

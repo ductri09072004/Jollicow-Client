@@ -4,6 +4,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<FirebaseService>();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -13,6 +20,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Menu/Error");
 }
 app.UseStaticFiles();
+app.UseSession();
 
 app.UseRouting();
 

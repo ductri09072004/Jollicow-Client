@@ -1,0 +1,204 @@
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+<div class="cart-body d-flex flex-column justify-content-between">
+    <div id="cartItems" class="cart-items mb-4">
+        <!-- Cart items will be populated here -->
+    </div>
+
+    <div class="cart-summary px-0" style="padding-top: 12px;">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0">Tổng cộng:</h4>
+            <h4 class="mb-0 text-danger" id="cartTotal">0đ</h4>
+        </div>
+        <button class="btn btn-danger w-100" onclick="checkout()" id="checkoutBtn" disabled>
+            Đặt món
+        </button>
+    </div>
+</div>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    .cart-container {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .cart-item-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .cart-item {
+        display: flex;
+        gap: 16px;
+        padding: 16px;
+        border: 1px solid #E9E9E9;
+        border-radius: 12px;
+        margin-bottom: 16px;
+    }
+
+    .cart-item-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .cart-item-details {
+        flex-grow: 1;
+    }
+
+    .cart-item-name {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .cart-item-options {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 4px;
+    }
+
+    .cart-item-price {
+        color: #E31837;
+        font-weight: 600;
+    }
+
+    .cart-item-quantity {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .quantity-btn {
+        width: 24px;
+        height: 24px;
+        border: none;
+        background: #E31837;
+        color: white;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .quantity-input {
+        width: 40px;
+        text-align: center;
+        border: 1px solid #E9E9E9;
+        border-radius: 4px;
+        padding: 4px;
+    }
+
+    .cart-summary {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        padding: 16px;
+        border-top: 1px solid #E9E9E9;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        function loadCartItems() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            const cartItemsContainer = document.getElementById('cartItems');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            if (cartItems.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="text-center py-4">Giỏ hàng đang trống</div>';
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            checkoutBtn.disabled = false;
+            cartItemsContainer.innerHTML = cartItems.map((item, index) => `
+                                        <div class="cart-item">
+                                            <img src="${item.image || '/lib/images/placeholder.png'}" alt="${item.name}" class="cart-item-image">
+                                            <div class="cart-item-container">
+                                                <div class="cart-item-details">
+                                                    <div class="cart-item-name">${item.name}</div>
+                                                    <div class="cart-item-options">
+                                                        ${item.size ? `Size: ${item.size}<br>` : ''}
+                                                        ${item.spicy ? `Cay: ${item.spicy}<br>` : ''}
+                                                        ${item.toppings && item.toppings.length > 0 ? `Topping: ${item.toppings.join(', ')}` : ''}
+                                                    </div>
+                                                    <div class="cart-item-price">${item.price.toLocaleString('vi-VN')}đ</div>
+                                                </div>
+                                                <div class="cart-item-quantity">
+                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                                    <input type="number" class="quantity-input" value="${item.quantity}" 
+                                                        min="1" max="99" onchange="updateQuantity(${index}, 0, this.value)">
+                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `).join('');
+
+            updateCartTotal();
+        }
+
+        function updateQuantity(index, change, newValue) {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            if (newValue !== undefined) {
+                cartItems[index].quantity = parseInt(newValue);
+            } else {
+                cartItems[index].quantity += change;
+            }
+
+            if (cartItems[index].quantity < 1) cartItems[index].quantity = 1;
+            if (cartItems[index].quantity > 99) cartItems[index].quantity = 99;
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            loadCartItems();
+            updateCartTotalUI();
+        }
+
+        function clearCart() {
+            if (confirm('Bạn có chắc chắn muốn xóa giỏ hàng?')) {
+                localStorage.removeItem('cartItems');
+                loadCartItems();
+                updateCartTotalUI();
+            }
+        }
+
+        function updateCartTotal() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            const total = cartItems.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+            document.getElementById('cartTotal').textContent = total.toLocaleString('vi-VN') + 'đ';
+        }
+
+        function checkout() {
+            const id_table = '@ViewData["IdTable"]';
+            const restaurant_id = '@ViewData["RestaurantId"]';
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+            if (cartItems.length === 0) {
+                alert('Giỏ hàng trống!');
+                return;
+            }
+
+            // Here you would typically send the order to your backend
+            // For now, we'll just show a success message
+            alert('Đặt món thành công!');
+            localStorage.removeItem('cartItems');
+            loadCartItems();
+            updateCartTotalUI();
+        }
+
+        // Load cart items when page loads
+        document.addEventListener('DOMContentLoaded', loadCartItems);
+    </script>
+}
