@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <SdkVersion>6.0.413</SdkVersion>
+    <RestoreFallbackFolders />
   </PropertyGroup>
 
   <ItemGroup>

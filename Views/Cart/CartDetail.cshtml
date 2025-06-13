@@ -108,6 +108,12 @@
         padding: 16px;
         border-top: 1px solid #E9E9E9;
     }
+
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 </style>
 
 @section Scripts {
@@ -125,27 +131,27 @@
 
             checkoutBtn.disabled = false;
             cartItemsContainer.innerHTML = cartItems.map((item, index) => `
-                                        <div class="cart-item">
-                                            <img src="${item.image || '/lib/images/placeholder.png'}" alt="${item.name}" class="cart-item-image">
-                                            <div class="cart-item-container">
-                                                <div class="cart-item-details">
-                                                    <div class="cart-item-name">${item.name}</div>
-                                                    <div class="cart-item-options">
-                                                        ${item.size ? `Size: ${item.size}<br>` : ''}
-                                                        ${item.spicy ? `Cay: ${item.spicy}<br>` : ''}
-                                                        ${item.toppings && item.toppings.length > 0 ? `Topping: ${item.toppings.join(', ')}` : ''}
-                                                    </div>
-                                                    <div class="cart-item-price">${item.price.toLocaleString('vi-VN')}đ</div>
-                                                </div>
-                                                <div class="cart-item-quantity">
-                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                                                    <input type="number" class="quantity-input" value="${item.quantity}" 
-                                                        min="1" max="99" onchange="updateQuantity(${index}, 0, this.value)">
-                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `).join('');
+                                                        <div class="cart-item">
+                                                            <img src="${item.image_url || '/lib/images/placeholder.png'}" alt="${item.name}" class="cart-item-image">
+                                                            <div class="cart-item-container">
+                                                                <div class="cart-item-details">
+                                                                    <div class="cart-item-name">${item.name}</div>
+                                                                    <div class="cart-item-options">
+                                                                        ${item.size ? `Size: ${item.size}<br>` : ''}
+                                                                        ${item.spicy ? `Cay: ${item.spicy}<br>` : ''}
+                                                                        ${item.toppings && item.toppings.length > 0 ? `Topping: ${item.toppings.join(', ')}` : ''}
+                                                                    </div>
+                                                                    <div class="cart-item-price">${item.price.toLocaleString('vi-VN')}đ</div>
+                                                                </div>
+                                                                <div class="cart-item-quantity">
+                                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                                                    <input type="number" class="quantity-input" value="${item.quantity}" 
+                                                                        min="1" max="99" onchange="updateQuantity(${index}, 0, this.value)">
+                                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    `).join('');
 
             updateCartTotal();
         }
