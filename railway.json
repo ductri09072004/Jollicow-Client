@@ -1,9 +1,9 @@
 {
-  "build": {
-    "command": "dotnet publish Jollicow.csproj -c Release -o out"
-  },
-  "start": {
-    "command": "dotnet out/Jollicow.dll",
-    "port": 3000
+   "build": {
+      "command": "dotnet clean && dotnet restore --force && dotnet publish Jollicow.csproj -c Release -r linux-x64 --self-contained false -o out"
+    },
+    "start": {
+      "command": "dotnet out/Jollicow.dll",
+      "port": 3000
+    }
   }
-}
