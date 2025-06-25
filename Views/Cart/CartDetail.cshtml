@@ -14,9 +14,10 @@
             <h4 class="mb-0">Tổng cộng:</h4>
             <h4 class="mb-0 text-danger" id="cartTotal">0đ</h4>
         </div>
+
         @if (!string.IsNullOrEmpty(idTable.ToString()) && !string.IsNullOrEmpty(restaurantId.ToString()))
         {
-            <button class="btn btn-success w-100" type="button" onclick="redirectToVietQR()">Chuyển khoản VietQR</button>
+            <vc:payment-method id-table="@idTable" restaurant-id="@restaurantId" />
         }
     </div>
 </div>
@@ -165,32 +166,32 @@
 
                 if (checkoutBtn) checkoutBtn.disabled = false;
                 cartItemsContainer.innerHTML = cartItems.map((item, index) => `
-                                                                                                                                                                                                                                                        <div class="cart-item">
-                                                                                                                                                                                                                                                    <button class="btn btn-sm d-flex justify-content-center align-items-center btn-outline-danger remove-btn p-0 m-0 border-1"
-                                                                                                                                                                                                                                                        style="width: 24px; height: 24px; align-self: flex-end; border-radius: 6px">
-                                                                                                                                                                                                                                                        <i class="bi bi-trash" style="font-size: 14px; line-height: 1;"></i>
-                                                                                                                                                                                                                                                    </button>
-                                                                                                                                                                                                                                                    <div class="cart-items-detail d-flex flex-row" style="gap: 12px">
-                                                                                                                                                                                                                                                        <div class="cart-item-container">
-                                                                                                                                                                                                                                                            <div class="cart-item-details">
-                                                                                                                                                                                                                                                                <div class="cart-item-name">${item.name}</div>
-                                                                                                                                                                                                                                                                <div class="cart-item-options">
-                                                                                                                                                                                                                                                                    ${item.toppings && item.toppings.length > 0 ? `Topping: ${item.toppings.join(', ')}` : ''}
-                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                            <div class="d-flex flex-row justify-content-between align-items-center">
-                                                                                                                                                                                                                                                                <div class="cart-item-quantity">
-                                                                                                                                                                                                                                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                                                                                                                                                                                                                                                                    <input type="number" class="quantity-input" style="color: #5F6368; font-size:12px" value="${item.quantity}"
-                                                                                                                                                                                                                                                                        min="1" max="99" onchange="updateQuantity(${index}, 0, this.value)">
-                                                                                                                                                                                                                                                                        <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                <div class="cart-item-price">${(item.price * item.quantity).toLocaleString('vi-VN')}đ</div>
-                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                    `).join('');
+                                                                                                                                                                                                                                                                                            <div class="cart-item">
+                                                                                                                                                                                                                                                                                        <button class="btn btn-sm d-flex justify-content-center align-items-center btn-outline-danger remove-btn p-0 m-0 border-1"
+                                                                                                                                                                                                                                                                                            style="width: 24px; height: 24px; align-self: flex-end; border-radius: 6px">
+                                                                                                                                                                                                                                                                                            <i class="bi bi-trash" style="font-size: 14px; line-height: 1;"></i>
+                                                                                                                                                                                                                                                                                        </button>
+                                                                                                                                                                                                                                                                                        <div class="cart-items-detail d-flex flex-row" style="gap: 12px">
+                                                                                                                                                                                                                                                                                            <div class="cart-item-container">
+                                                                                                                                                                                                                                                                                                <div class="cart-item-details">
+                                                                                                                                                                                                                                                                                                    <div class="cart-item-name">${item.name}</div>
+                                                                                                                                                                                                                                                                                                    <div class="cart-item-options">
+                                                                                                                                                                                                                                                                                                        ${item.toppings && item.toppings.length > 0 ? `Topping: ${item.toppings.join(', ')}` : ''}
+                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                <div class="d-flex flex-row justify-content-between align-items-center">
+                                                                                                                                                                                                                                                                                                    <div class="cart-item-quantity">
+                                                                                                                                                                                                                                                                                                        <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                                                                                                                                                                                                                                                                                        <input type="number" class="quantity-input" style="color: #5F6368; font-size:12px" value="${item.quantity}"
+                                                                                                                                                                                                                                                                                                            min="1" max="99" onchange="updateQuantity(${index}, 0, this.value)">
+                                                                                                                                                                                                                                                                                                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                    <div class="cart-item-price">${(item.price * item.quantity).toLocaleString('vi-VN')}đ</div>
+                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                        `).join('');
 
                 // Update total
                 const total = cartItems.reduce((sum, item) => sum + ((parseFloat(item.price) || 0) * item.quantity), 0);
@@ -254,16 +255,96 @@
                 }
             }
 
-        async function redirectToVietQR() {
-            // Use the existing acsc parameter from current URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const acsc = urlParams.get('acsc');
-            if (acsc) {
-                window.location.href = `/Payment/VietQR?acsc=${encodeURIComponent(acsc)}`;
-            } else {
-                alert('Không tìm thấy mã truy cập hợp lệ.');
+        @* Hàm cập nhật nút thanh toán dựa trên phương thức được chọn *@
+            function updatePaymentButton() {
+                const paymentMethod = document.getElementById('paymentMethod').value;
+                const paymentButton = document.getElementById('paymentButton');
+
+                if (!paymentMethod) {
+                    paymentButton.textContent = 'Chọn phương thức thanh toán';
+                    paymentButton.disabled = true;
+                    paymentButton.className = 'btn btn-secondary w-100';
+                    return;
+                }
+
+                paymentButton.disabled = false;
+                paymentButton.className = 'btn btn-success w-100';
+
+                switch (paymentMethod) {
+                    case 'vietqr':
+                        paymentButton.textContent = 'Thanh toán VietQR';
+                        break;
+                    case 'vnpay':
+                        paymentButton.textContent = 'Thanh toán VNPay';
+                        break;
+                    case 'cash':
+                        paymentButton.textContent = 'Thanh toán tiền mặt';
+                        break;
+                    case 'card':
+                        paymentButton.textContent = 'Thanh toán thẻ';
+                        break;
+                    default:
+                        paymentButton.textContent = 'Thanh toán';
+                }
             }
-        }
+
+        @* Hàm xử lý thanh toán *@
+            function processPayment() {
+                const paymentMethod = document.getElementById('paymentMethod').value;
+
+                if (!paymentMethod) {
+                    alert('Vui lòng chọn phương thức thanh toán!');
+                    return;
+                }
+
+                switch (paymentMethod) {
+                    case 'vietqr':
+                        redirectToVietQR();
+                        break;
+                    case 'vnpay':
+                        redirectToVNPay();
+                        break;
+                    case 'cash':
+                        processCashPayment();
+                        break;
+                    case 'card':
+                        processCardPayment();
+                        break;
+                    default:
+                        alert('Phương thức thanh toán không hợp lệ!');
+                }
+            }
+
+        @* Hàm chuyển hướng đến VietQR *@
+            async function redirectToVietQR() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const acsc = urlParams.get('acsc');
+                if (acsc) {
+                    window.location.href = `/Payment/VietQR?acsc=${encodeURIComponent(acsc)}`;
+                } else {
+                    alert('Không tìm thấy mã truy cập hợp lệ.');
+                }
+            }
+
+        @* Hàm chuyển hướng đến VNPay *@
+            function redirectToVNPay() {
+                // TODO: Implement VNPay redirect
+                alert('Tính năng VNPay đang được phát triển!');
+            }
+
+        @* Hàm xử lý thanh toán tiền mặt *@
+            function processCashPayment() {
+                if (confirm('Bạn có chắc chắn muốn thanh toán bằng tiền mặt?')) {
+                    // TODO: Implement cash payment logic
+                    alert('Đơn hàng đã được xác nhận. Vui lòng thanh toán tiền mặt khi nhận hàng!');
+                }
+            }
+
+        @* Hàm xử lý thanh toán thẻ *@
+            function processCardPayment() {
+                // TODO: Implement card payment logic
+                alert('Tính năng thanh toán thẻ đang được phát triển!');
+            }
 
         document.addEventListener('DOMContentLoaded', loadCartItems);
     </script>

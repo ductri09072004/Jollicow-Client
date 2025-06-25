@@ -1,0 +1,111 @@
+@using Jollicow.Models
+@model PaymentMethodModel
+
+<!-- Payment Method Dropdown -->
+<div class="mb-3">
+    <label for="paymentMethod" class="form-label fw-bold mb-2">Phương thức thanh toán:</label>
+    <select class="form-select" id="paymentMethod" onchange="updatePaymentButton()">
+        <option value="">Chọn phương thức thanh toán</option>
+        <option value="vietqr">Chuyển khoản VietQR</option>
+        <option value="cash">Tiền mặt</option>
+    </select>
+</div>
+
+<!-- Payment Button -->
+<button class="button w-100" style="height: 48px;" type="button" id="paymentButton" onclick="processPayment()" disabled>
+    <span class="button-text">Chọn phương thức thanh toán</span>
+    Chọn phương thức thanh toán
+</button>
+
+<style>
+    .form-select {
+        border: 1px solid #E9E9E9;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .form-select:focus {
+        border-color: #E31837;
+        box-shadow: 0 0 0 0.2rem rgba(227, 24, 55, 0.25);
+    }
+
+    .form-label {
+        color: #3F4143;
+        font-size: 14px;
+    }
+</style>
+
+<script>
+    @* Hàm cập nhật nút thanh toán dựa trên phương thức được chọn *@
+        function updatePaymentButton() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const paymentButton = document.getElementById('paymentButton');
+
+            if (!paymentMethod) {
+                paymentButton.textContent = 'Chọn phương thức thanh toán';
+                paymentButton.disabled = true;
+                paymentButton.className = 'button w-100';
+                return;
+            }
+
+            paymentButton.disabled = false;
+            paymentButton.className = 'button w-100';
+
+            switch (paymentMethod) {
+                case 'vietqr':
+                    paymentButton.textContent = 'Thanh toán VietQR';
+                    break;
+                case 'cash':
+                    paymentButton.textContent = 'Thanh toán tiền mặt';
+                    break;
+                default:
+                    paymentButton.textContent = 'Thanh toán';
+            }
+        }
+
+    @* Hàm xử lý thanh toán *@
+        function processPayment() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+
+            if (!paymentMethod) {
+                alert('Vui lòng chọn phương thức thanh toán!');
+                return;
+            }
+
+            switch (paymentMethod) {
+                case 'vietqr':
+                    redirectToVietQR();
+                    break;
+                case 'cash':
+                    processCashPayment();
+                    break;
+                default:
+                    alert('Phương thức thanh toán không hợp lệ!');
+            }
+        }
+
+    @* Hàm chuyển hướng đến VietQR *@
+        async function redirectToVietQR() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const acsc = urlParams.get('acsc');
+            if (acsc) {
+                window.location.href = `/Payment/VietQR?acsc=${encodeURIComponent(acsc)}`;
+            } else {
+                alert('Không tìm thấy mã truy cập hợp lệ.');
+            }
+        }
+    @* Hàm xử lý thanh toán tiền mặt *@
+        function processCashPayment() {
+            if (confirm('Bạn có chắc chắn muốn thanh toán bằng tiền mặt?')) {
+                // TODO: Implement cash payment logic
+                alert('Đơn hàng đã được xác nhận. Vui lòng thanh toán tiền mặt khi nhận hàng!');
+            }
+        }
+
+
+    // Initialize payment button on component load
+    document.addEventListener('DOMContentLoaded', function () {
+        updatePaymentButton();
+    });
+</script>

@@ -1,4 +1,5 @@
 using Jollicow.Models;
+using System.Text.Json;
 
 public class CartAPIHelper
 {
@@ -11,4 +12,52 @@ public class CartAPIHelper
         Console.WriteLine(response.Content.ReadAsStringAsync());
         return response.IsSuccessStatusCode;
     }
+
+    // Get cart total amount
+    public static async Task<decimal> GetCartTotalAsync(string idTable, string restaurantId)
+    {
+        try
+        {
+            var payload = new
+            {
+                id_table = idTable,
+                id_restaurant = restaurantId
+            };
+
+            var response = await _httpClient.PostAsJsonAsync("https://jollicowfe-production.up.railway.app/api/carts/filter", payload);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<CartFilterResponse>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                if (result?.Carts != null)
+                {
+                    return result.Carts.Sum(item => (decimal)(item.Price * item.Quantity));
+                }
+            }
+
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error getting cart total: {ex.Message}");
+            return 0;
+        }
+    }
+}
+
+// Response model for cart filter API
+public class CartFilterResponse
+{
+    public List<CartItem> Carts { get; set; } = new List<CartItem>();
+}
+
+public class CartItem
+{
+    public decimal Price { get; set; }
+    public int Quantity { get; set; }
 }

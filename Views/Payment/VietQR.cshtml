@@ -2,7 +2,7 @@
     ViewData["Title"] = "Chuyển khoản VietQR";
     var idTable = ViewData["IdTable"]?.ToString() ?? "";
     var restaurantId = ViewData["RestaurantId"]?.ToString() ?? "";
-    var amount = ViewData["Amount"]?.ToString() ?? "";
+    var amount = ViewData["Amount"] != null ? Convert.ToDecimal(ViewData["Amount"]) : 0m;
     var accountName = ViewData["AccountName"]?.ToString() ?? "";
     var accountNumber = ViewData["AccountNumber"]?.ToString() ?? "";
     var bank = ViewData["Bank"]?.ToString() ?? "";
@@ -19,14 +19,14 @@ else
             <div class="card-body text-center">
                 <h3 class="mb-3">Chuyển khoản VietQR</h3>
                 <div class="mb-3">
-                    <img src="https://img.vietqr.io/image/{{bank}}-{{accountNumber}}-compact2.png?amount={{amount}}&addInfo={{description}}"
+                    <img src="https://img.vietqr.io/image/@bank-@accountNumber-compact2.png?amount=@((int)amount)&addInfo=@description"
                         alt="VietQR" class="img-fluid" style="max-width: 300px;"
                         onerror="this.onerror=null;this.src='https://img.vietqr.io/image/VCB-123456789-compact2.png?amount=100000&addInfo=Demo';" />
                 </div>
                 <div class="mb-2"><strong>Ngân hàng:</strong> @bank</div>
                 <div class="mb-2"><strong>Số tài khoản:</strong> @accountNumber</div>
                 <div class="mb-2"><strong>Tên tài khoản:</strong> @accountName</div>
-                <div class="mb-2"><strong>Số tiền:</strong> @String.Format("{0:N0}", amount) VNĐ</div>
+                <div class="mb-2"><strong>Số tiền:</strong> @amount.ToString("N0") VNĐ</div>
                 <div class="mb-2"><strong>Nội dung chuyển khoản:</strong> @description</div>
                 <a href="@Url.Action("CartDetail", "Cart", new { acsc = Context.Request.Query["acsc"] })"
                     class="btn btn-secondary mt-3">Quay lại giỏ hàng</a>

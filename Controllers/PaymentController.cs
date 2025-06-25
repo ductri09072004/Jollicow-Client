@@ -14,7 +14,7 @@ namespace Jollicow.Controllers
 
         // GET: /Payment/VietQR?acsc=ENCRYPTED_TOKEN
         [HttpGet]
-        public IActionResult VietQR(string acsc)
+        public async Task<IActionResult> VietQR(string acsc)
         {
             // Lấy thông tin từ mã hóa (giống như CartController và MenuController)
             var decrypted = _tokenService.TryDecrypt(acsc);
@@ -31,9 +31,12 @@ namespace Jollicow.Controllers
                 return BadRequest("Thiếu thông tin.");
             }
 
+            // Lấy tổng tiền từ giỏ hàng
+            var cartTotal = await CartAPIHelper.GetCartTotalAsync(idTable, restaurantId);
+
             ViewData["IdTable"] = idTable;
             ViewData["RestaurantId"] = restaurantId;
-            ViewData["Amount"] = 100000; // Example amount, replace with your logic
+            ViewData["Amount"] = cartTotal;
             ViewData["AccountName"] = "Jollicow Restaurant";
             ViewData["AccountNumber"] = "0389105492";
             ViewData["Bank"] = "MB";
