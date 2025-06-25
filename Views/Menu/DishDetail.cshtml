@@ -4,6 +4,15 @@
 
 @{
     Layout = null;
+
+    if (ViewData["IdTable"] == null)
+    {
+        ViewData["IdTable"] = ViewContext.RouteData.Values["id_table"]?.ToString() ?? "B01";
+    }
+    if (ViewData["RestaurantId"] == null)
+    {
+        ViewData["RestaurantId"] = ViewContext.RouteData.Values["restaurant_id"]?.ToString() ?? "CHA1001";
+    }
 }
 
 @model DishesModels
@@ -286,6 +295,8 @@
         <img src="@Model.image" alt="Hình ảnh món ăn" style="width: 100%; height: 20%; object-fit: cover;" />
         <div class="d-flex flex-column m-0 p-0" style="padding: 12px;">
             <div class="dish-info">
+                <p>Table: @ViewData["IdTable"]</p>
+                <p>Res: @ViewData["RestaurantId"]</p>
                 <h1 class="dish-name fw-bold" style="font-size: 16px;">@Model.name</h1>
                 <div class="dish-price">@(Model.price.ToString("N0")) đ</div>
 
@@ -465,43 +476,57 @@
         });
 
         function addToCart() {
-            // Get selected options
-            const size = document.querySelector('#sizeGroup .selected')?.textContent || 'Nhỏ';
-            const spicy = document.querySelector('#spicyGroup .selected')?.textContent || 'Không cay';
+            // Gather data
+            const dishId = '@Model.id_dishes';
+            const dishName = '@Model.name';
+            const dishImage = '@Model.image';
+            const idTable = '@ViewData["IdTable"]';
+            const restaurantId = '@ViewData["RestaurantId"]';
             const note = document.querySelector('.note-input').value;
-            const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked'))
-                .map(cb => cb.nextElementSibling.textContent);
-            const quantity = parseInt(document.getElementById('quantityInput').value);
+            const sizeOption = document.querySelector('#sizeGroup .option-item.selected');
+            const spicyOption = document.querySelector('#spicyGroup .option-item.selected');
+            const selectedToppingLabels = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(cb => cb.nextElementSibling.textContent.trim());
+            const selectedToppingPrices = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(cb => parseInt(cb.dataset.price));
+            const toppingsTotal = selectedToppingPrices.reduce((sum, price) => sum + price, 0);
+            const totalPrice = (basePrice + selectedSizePrice + toppingsTotal) * quantity;
 
-            // Calculate total price for this item
-            const toppingsTotal = Array.from(selectedToppings).reduce((sum, price) => sum + price, 0);
-            const itemTotal = (basePrice + selectedSizePrice + toppingsTotal) * quantity;
-
-            // Store cart item details
-            const cartItem = {
-                id: '@Model.id_dishes',
-                name: '@Model.name',
-                image_url: '@Model.image',
-                size,
-                spicy,
-                note,
-                toppings,
-                quantity,
-                price: itemTotal
+            // Prepare payload
+            const payload = {
+                id_dishes: dishId,
+                id_restaurant: restaurantId,
+                id_table: idTable,
+                name: @Html.Raw(Json.Serialize(Model.name)),
+                price: totalPrice,
+                quantity: quantity,
+                id_topping: selectedToppingLabels,
+                note: note,
             };
 
-            // Get existing cart items or initialize empty array
-            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-            cartItems.push(cartItem);
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            console.log("payload", payload);
+            // POST to API
+            fetch('https://jollicowfe-production.up.railway.app/api/carts/create', {
+                method: 'POST',
+                headers:
+                {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(response => {
 
-            // ✅ Now update UI cart total AFTER saving to localStorage
-            updateCartTotalFromItems();
-
-            // Show success message
-            alert('Đã thêm vào giỏ hàng!');
+                    if (!response.ok) throw new Error('Failed to add to cart');
+                    return response.json();
+                })
+                .then(data => {
+                    // Optionally update localStorage or UI
+                    alert('Đã thêm vào giỏ hàng!');
+                    // Optionally update cart UI/total
+                    updateCartTotalFromItems();
+                })
+                .catch(error => {
+                    alert('Lỗi khi thêm vào giỏ hàng: ' + error.message);
+                });
         }
-
 
         function goBack() {
             window.history.back();

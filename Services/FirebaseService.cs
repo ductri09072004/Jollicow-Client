@@ -82,4 +82,24 @@ public class FirebaseService
 
         return categories.Select(c => c.Object).ToList();
     }
+
+    public async Task<List<CategoriesModel>> GetCategoriesByRestaurantIdAsync(string restaurantId)
+    {
+        var categories = await GetAllCategoriesAsync();
+        categories = categories.Where(c => c.id_restaurant == restaurantId).ToList();
+
+        return categories;
+    }
+
+    // Cart
+    public async Task AddCartAsync(CartModel cart)
+    {
+        var id = Guid.NewGuid().ToString();
+        await _client
+            .Child("Carts")
+            .Child(cart.id_restaurant)
+            .Child(cart.id_table)
+            .Child(id)
+            .PutAsync(cart);
+    }
 }

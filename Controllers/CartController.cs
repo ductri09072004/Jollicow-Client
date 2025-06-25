@@ -1,19 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
+using Jollicow.Services;
 
 namespace Jollicow.Controllers
 {
     public class CartController : Controller
     {
         private readonly ILogger<CartController> _logger;
+        private readonly TokenService _tokenService;
 
-        public CartController(ILogger<CartController> logger)
+        public CartController(ILogger<CartController> logger, TokenService tokenService)
         {
             _logger = logger;
+            _tokenService = tokenService;
         }
 
         [HttpGet("/cart/cartdetail")]
-        public IActionResult CartDetail(string id_table, string restaurant_id)
+        public IActionResult CartDetail(string acsc)
         {
+            // Lấy thông tin từ mã hóa
+            var decrypted = _tokenService.TryDecrypt(acsc);
+            if (decrypted == null)
+            {
+                ViewBag.Error = "Link không hợp lệ hoặc đã hết hạn.";
+                return View("Error");
+            }
+
+            var (id_table, restaurant_id) = decrypted.Value;
+
             if (string.IsNullOrEmpty(id_table) || string.IsNullOrEmpty(restaurant_id))
             {
                 _logger.LogWarning("Missing parameters: id_table={IdTable}, restaurant_id={IdRestaurant}", id_table, restaurant_id);

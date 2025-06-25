@@ -1,9 +1,11 @@
 @{
     ViewData["Title"] = "Giỏ hàng";
+    var idTable = ViewData["IdTable"] ?? "";
+    var restaurantId = ViewData["RestaurantId"] ?? "";
 }
 
 <div class="cart-body d-flex flex-column justify-content-between">
-    <div id="cartItems" class="cart-items mb-4">
+    <div id="cartItemsContainer" class="cart-items mb-4">
         <!-- Cart items will be populated here -->
     </div>
 
@@ -12,9 +14,10 @@
             <h4 class="mb-0">Tổng cộng:</h4>
             <h4 class="mb-0 text-danger" id="cartTotal">0đ</h4>
         </div>
-        <button class="btn btn-danger w-100" onclick="checkout()" id="checkoutBtn" disabled>
-            Đặt món
-        </button>
+        @if (!string.IsNullOrEmpty(idTable.ToString()) && !string.IsNullOrEmpty(restaurantId.ToString()))
+        {
+            <button class="btn btn-success w-100" type="button" onclick="redirectToVietQR()">Chuyển khoản VietQR</button>
+        }
     </div>
 </div>
 
@@ -33,16 +36,16 @@
 
     .cart-item-container {
         display: flex;
+        flex-grow: 1;
         flex-direction: column;
         justify-content: space-between;
     }
 
     .cart-item {
         display: flex;
-        gap: 16px;
+        flex-direction: column;
+        gap: 12px;
         padding: 16px;
-        border: 1px solid #E9E9E9;
-        border-radius: 12px;
         margin-bottom: 16px;
     }
 
@@ -66,12 +69,13 @@
     .cart-item-options {
         font-size: 12px;
         color: #666;
-        margin-bottom: 4px;
+        margin-bottom: 12px;
     }
 
     .cart-item-price {
-        color: #E31837;
-        font-weight: 600;
+        color: #5D5D5D;
+        font-size: 16px;
+        font-weight: bold;
     }
 
     .cart-item-quantity {
@@ -94,11 +98,11 @@
     }
 
     .quantity-input {
-        width: 40px;
+        width: 32px;
+        height: 24px;
         text-align: center;
         border: 1px solid #E9E9E9;
         border-radius: 4px;
-        padding: 4px;
     }
 
     .cart-summary {
@@ -118,93 +122,149 @@
 
 @section Scripts {
     <script>
-        function loadCartItems() {
-            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-            const cartItemsContainer = document.getElementById('cartItems');
-            const checkoutBtn = document.getElementById('checkoutBtn');
+        const id_table = '@idTable';
+        const restaurant_id = '@restaurantId';
 
-            if (cartItems.length === 0) {
-                cartItemsContainer.innerHTML = '<div class="text-center py-4">Giỏ hàng đang trống</div>';
-                checkoutBtn.disabled = true;
-                return;
+        @* Hàm fetch API *@
+            async function apiFetch(url, method = 'GET', data = null, headers = { 'Content-Type': 'application/json' }) {
+                const options = {
+                    method,
+                    headers
+                };
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                console.log('data', data)
+                const response = await fetch(url, options);
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+                return response.json();
             }
 
-            checkoutBtn.disabled = false;
-            cartItemsContainer.innerHTML = cartItems.map((item, index) => `
-                                                        <div class="cart-item">
-                                                            <img src="${item.image_url || '/lib/images/placeholder.png'}" alt="${item.name}" class="cart-item-image">
-                                                            <div class="cart-item-container">
-                                                                <div class="cart-item-details">
-                                                                    <div class="cart-item-name">${item.name}</div>
-                                                                    <div class="cart-item-options">
-                                                                        ${item.size ? `Size: ${item.size}<br>` : ''}
-                                                                        ${item.spicy ? `Cay: ${item.spicy}<br>` : ''}
-                                                                        ${item.toppings && item.toppings.length > 0 ? `Topping: ${item.toppings.join(', ')}` : ''}
-                                                                    </div>
-                                                                    <div class="cart-item-price">${item.price.toLocaleString('vi-VN')}đ</div>
-                                                                </div>
-                                                                <div class="cart-item-quantity">
-                                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                                                                    <input type="number" class="quantity-input" value="${item.quantity}" 
-                                                                        min="1" max="99" onchange="updateQuantity(${index}, 0, this.value)">
-                                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    `).join('');
+        @* Hàm load giỏ hàng *@
+            async function loadCartItems() {
+                const cartItemsContainer = document.getElementById('cartItemsContainer');
+                const checkoutBtn = document.getElementById('checkoutBtn');
 
-            updateCartTotal();
-        }
+                const payload = {
+                    id_table: id_table,
+                    id_restaurant: restaurant_id
+                };
 
-        function updateQuantity(index, change, newValue) {
-            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-            if (newValue !== undefined) {
-                cartItems[index].quantity = parseInt(newValue);
-            } else {
-                cartItems[index].quantity += change;
+                const response = await apiFetch('https://jollicowfe-production.up.railway.app/api/carts/filter', 'POST', payload)
+                const cartItems = response.carts || [];
+                console.log("cartItems", cartItems);
+                if (cartItems.length === 0) {
+                    cartItemsContainer.innerHTML = '<div class="text-center py-4">Giỏ hàng đang trống</div>';
+                    if (checkoutBtn) checkoutBtn.disabled = true;
+                    document.getElementById('cartTotal').textContent = '0đ';
+                    return;
+                }
+
+
+                if (checkoutBtn) checkoutBtn.disabled = false;
+                cartItemsContainer.innerHTML = cartItems.map((item, index) => `
+                                                                                                                                                                                                                                                        <div class="cart-item">
+                                                                                                                                                                                                                                                    <button class="btn btn-sm d-flex justify-content-center align-items-center btn-outline-danger remove-btn p-0 m-0 border-1"
+                                                                                                                                                                                                                                                        style="width: 24px; height: 24px; align-self: flex-end; border-radius: 6px">
+                                                                                                                                                                                                                                                        <i class="bi bi-trash" style="font-size: 14px; line-height: 1;"></i>
+                                                                                                                                                                                                                                                    </button>
+                                                                                                                                                                                                                                                    <div class="cart-items-detail d-flex flex-row" style="gap: 12px">
+                                                                                                                                                                                                                                                        <div class="cart-item-container">
+                                                                                                                                                                                                                                                            <div class="cart-item-details">
+                                                                                                                                                                                                                                                                <div class="cart-item-name">${item.name}</div>
+                                                                                                                                                                                                                                                                <div class="cart-item-options">
+                                                                                                                                                                                                                                                                    ${item.toppings && item.toppings.length > 0 ? `Topping: ${item.toppings.join(', ')}` : ''}
+                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                                                                                                                                                                                                                                                <div class="cart-item-quantity">
+                                                                                                                                                                                                                                                                    <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                                                                                                                                                                                                                                                    <input type="number" class="quantity-input" style="color: #5F6368; font-size:12px" value="${item.quantity}"
+                                                                                                                                                                                                                                                                        min="1" max="99" onchange="updateQuantity(${index}, 0, this.value)">
+                                                                                                                                                                                                                                                                        <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                <div class="cart-item-price">${(item.price * item.quantity).toLocaleString('vi-VN')}đ</div>
+                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                    `).join('');
+
+                // Update total
+                const total = cartItems.reduce((sum, item) => sum + ((parseFloat(item.price) || 0) * item.quantity), 0);
+                document.getElementById('cartTotal').textContent = total.toLocaleString('vi-VN') + 'đ';
             }
 
-            if (cartItems[index].quantity < 1) cartItems[index].quantity = 1;
-            if (cartItems[index].quantity > 99) cartItems[index].quantity = 99;
+        @* Hàm update số lượng *@
+            function updateQuantity(index, change, newValue) {
+                const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
-            loadCartItems();
-            updateCartTotalUI();
-        }
+                if (newValue !== undefined) {
+                    cartItems[index].quantity = parseInt(newValue) || 1;
+                } else {
+                    cartItems[index].quantity += change;
+                }
 
-        function clearCart() {
-            if (confirm('Bạn có chắc chắn muốn xóa giỏ hàng?')) {
+                if (cartItems[index].quantity < 1) cartItems[index].quantity = 1;
+                if (cartItems[index].quantity > 99) cartItems[index].quantity = 99;
+
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                loadCartItems();
+            }
+
+        @* Hàm xóa giỏ hàng *@
+            function clearCart() {
+                if (confirm('Bạn có chắc chắn muốn xóa giỏ hàng?')) {
+                    localStorage.removeItem('cartItems');
+                    loadCartItems();
+                }
+            }
+
+        @* Hàm update tổng tiền *@
+            function updateCartTotal() {
+                const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+                const total = cartItems.reduce((sum, item) => sum + ((parseFloat(item.price) || 0) * item.quantity), 0);
+                document.getElementById('cartTotal').textContent = total.toLocaleString('vi-VN') + 'đ';
+            }
+
+        @* Hàm đặt món *@
+            function checkout() {
+                const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+                if (cartItems.length === 0) {
+                    alert('Giỏ hàng trống!');
+                    return;
+                }
+
+                // Đây là chỗ để gọi API gửi order về server (nếu có)
+                alert('Đặt món thành công!');
                 localStorage.removeItem('cartItems');
                 loadCartItems();
-                updateCartTotalUI();
+            }
+
+        @* Hàm xóa món *@
+            function removeItem(index) {
+                if (confirm('Bạn có chắc chắn muốn xóa món này khỏi giỏ hàng?')) {
+                    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+                    cartItems.splice(index, 1);
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    loadCartItems();
+                }
+            }
+
+        async function redirectToVietQR() {
+            // Use the existing acsc parameter from current URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const acsc = urlParams.get('acsc');
+            if (acsc) {
+                window.location.href = `/Payment/VietQR?acsc=${encodeURIComponent(acsc)}`;
+            } else {
+                alert('Không tìm thấy mã truy cập hợp lệ.');
             }
         }
 
-        function updateCartTotal() {
-            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-            const total = cartItems.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
-            document.getElementById('cartTotal').textContent = total.toLocaleString('vi-VN') + 'đ';
-        }
-
-        function checkout() {
-            const id_table = '@ViewData["IdTable"]';
-            const restaurant_id = '@ViewData["RestaurantId"]';
-            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-
-            if (cartItems.length === 0) {
-                alert('Giỏ hàng trống!');
-                return;
-            }
-
-            // Here you would typically send the order to your backend
-            // For now, we'll just show a success message
-            alert('Đặt món thành công!');
-            localStorage.removeItem('cartItems');
-            loadCartItems();
-            updateCartTotalUI();
-        }
-
-        // Load cart items when page loads
         document.addEventListener('DOMContentLoaded', loadCartItems);
     </script>
 }

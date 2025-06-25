@@ -1,11 +1,48 @@
-// Initialize cart if it doesn't exist
-if (!localStorage.getItem("cartItems")) {
-  localStorage.setItem("cartItems", "[]");
+function getCartKey() {
+  const idTable = document.body.dataset.table; // Hoặc lấy từ ViewData["IdTable"]
+  const restaurantId = document.body.dataset.restaurant; // Hoặc ViewData["RestaurantId"]
+  return `cartItems_${idTable}_${restaurantId}`;
+}
+// Hàm fetch
+async function apiFetch(
+  url,
+  method = "GET",
+  data = null,
+  headers = { "Content-Type": "application/json" }
+) {
+  const options = {
+    method,
+    headers,
+  };
+  if (data) {
+    options.body = JSON.stringify(data);
+  }
+  const response = await fetch(url, options);
+  console.log("fetch: ", response);
+  if (!response.ok) {
+    throw new Error(`API error: ${response.status}`);
+  }
+  return response.json();
 }
 
-function updateCartTotalUI() {
+async function updateCartTotalUI() {
   try {
-    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+    const payload = {
+      id_table: document.body.dataset.table,
+      id_restaurant: document.body.dataset.restaurant,
+    };
+
+    // console.log("payload:", payload);
+
+    const response = await apiFetch(
+      "https://jollicowfe-production.up.railway.app/api/carts/filter",
+      "POST",
+      payload
+    );
+    const cartItems = response.carts || [];
+    console.log("Cart", cartItems);
+    // const cartItems = JSON.parse(localStorage.getItem(cartKey) || "[]");
+
     const total = cartItems.reduce(
       (sum, item) => sum + (parseFloat(item.price) || 0),
       0
@@ -17,8 +54,9 @@ function updateCartTotalUI() {
     }
   } catch (error) {
     console.error("Error updating cart total:", error);
-    // Reset cart if there's an error
-    localStorage.setItem("cartItems", "[]");
+    const cartKey = getCartKey();
+    localStorage.setItem(cartKey, "[]");
+
     const cartTotalElement = document.getElementById("cartTotalPrice");
     if (cartTotalElement) {
       cartTotalElement.textContent = "0đ";
@@ -26,12 +64,12 @@ function updateCartTotalUI() {
   }
 }
 
-// Update cart total when page loads
+// Gọi khi trang load
 document.addEventListener("DOMContentLoaded", updateCartTotalUI);
 
-// Update cart total when storage changes (for multiple tabs)
+// Gọi khi localStorage thay đổi (nếu dùng nhiều tab)
 window.addEventListener("storage", function (e) {
-  if (e.key === "cartItems") {
+  if (e.key === getCartKey()) {
     updateCartTotalUI();
   }
 });

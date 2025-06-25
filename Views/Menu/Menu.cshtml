@@ -14,7 +14,7 @@
             {
                 var isActive = Model.SelectedCategoryID == cate.id_category ? "slider-btn-active" : "slider-btn";
                 <a style="text-decoration: none;"
-                    href="@Url.Action("Menu", new { id_table = Model.IdTable, restaurant_id = Model.RestaurantId, id_category = cate.id_category })">
+                    href="@Url.Action("Menu", new { acsc = Context.Request.Query["acsc"], id_category = cate.id_category, restaurant_id = Model.RestaurantId })">
                     <button class="@isActive">@cate.name</button>
                 </a>
             }
@@ -23,7 +23,7 @@
         <div class="dish-list d-flex flex-column gap-3 mb-2">
             @foreach (var dish in Model.Dishes)
             {
-                <a href="@Url.Action("DishDetail", new { id_table = Model.IdTable, restaurant_id = Model.RestaurantId, id_dishes = dish.id_dishes })"
+                <a href="@Url.Action("DishDetail", new { acsc = Context.Request.Query["acsc"], id_dishes = dish.id_dishes })"
                     style="text-decoration: none;">
                     @await Component.InvokeAsync("DishCard", new {
 

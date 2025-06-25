@@ -1,3 +1,5 @@
+using Jollicow.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +13,10 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// Service Mã hóa
+builder.Services.AddDataProtection();
+builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
 
@@ -28,13 +34,13 @@ app.UseAuthorization();
 
 app.MapGet("/", context =>
 {
-    context.Response.Redirect("/menu?id_table=B01&restaurant_id=CHA1001");
+    context.Response.Redirect("/menu/generate?id_table=B02&restaurant_id=CHA1001");
     return Task.CompletedTask;
 });
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Menu}/{action=Menu}/{id?}",
-    defaults: new { id_table = "B01", restaurant_id = "CHA1001" });
+    defaults: new { id_table = "B02", restaurant_id = "CHA1001" });
 
 app.Run();
