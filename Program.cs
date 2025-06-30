@@ -17,6 +17,7 @@ builder.Services.AddSession(options =>
 // Service Mã hóa
 builder.Services.AddDataProtection();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<ToppingService>();
 
 var app = builder.Build();
 

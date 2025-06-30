@@ -13,6 +13,12 @@
     {
         ViewData["RestaurantId"] = ViewContext.RouteData.Values["restaurant_id"]?.ToString() ?? "CHA1001";
     }
+
+    @* Lấy topping *@
+    var toppings = ViewData["Toppings"] as List<ToppingModels> ?? new List<ToppingModels>();
+    var sizeOptions = toppings?.FirstOrDefault(t => t.Type == ToppingType.Size)?.options ?? new List<ToppingOptions>();
+    var spicyOptions = toppings?.FirstOrDefault(t => t.Type == ToppingType.Spice)?.options ?? new List<ToppingOptions>();
+    var addOnOptions = toppings?.FirstOrDefault(t => t.Type == ToppingType.AddOn)?.options ?? new List<ToppingOptions>();
 }
 
 @model DishesModels
@@ -91,6 +97,8 @@
     }
 
     .option-item {
+        display: flex;
+        flex-direction: column;
         flex: 1;
         padding: 10px;
         border: 1px solid #ddd;
@@ -141,7 +149,12 @@
 
     .topping-price {
         color: #E31837;
-        font-weight: 500;
+        font-size: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .option-item.selected .topping-price {
+        color: #ffffff;
     }
 
     .checkbox-wrapper {
@@ -275,6 +288,10 @@
         outline: none;
         border-color: #E31837;
     }
+
+    .option-item-init {
+        color: #909090;
+    }
 </style>
 
 <head>
@@ -295,58 +312,66 @@
         <img src="@Model.image" alt="Hình ảnh món ăn" style="width: 100%; height: 20%; object-fit: cover;" />
         <div class="d-flex flex-column m-0 p-0" style="padding: 12px;">
             <div class="dish-info">
-                <p>Table: @ViewData["IdTable"]</p>
-                <p>Res: @ViewData["RestaurantId"]</p>
                 <h1 class="dish-name fw-bold" style="font-size: 16px;">@Model.name</h1>
                 <div class="dish-price">@(Model.price.ToString("N0")) đ</div>
 
-                <div class="option-section">
-                    <h2 class="option-title">Kích thước</h2>
-                    <div class="option-group" id="sizeGroup">
-                        <div class="option-item" data-price="0">Nhỏ</div>
-                        <div class="option-item" data-price="10000">Vừa (+10.000đ)</div>
-                        <div class="option-item" data-price="20000">Lớn (+20.000đ)</div>
-                    </div>
+                <!-- Kích thước & Độ cay -->
+                @if ((sizeOptions != null && sizeOptions.Count > 0 && sizeOptions.Any()) || (spicyOptions != null &&
+                                spicyOptions.Count > 0 && spicyOptions.Any()))
+                {
+                    <div class="option-section">
+                        @if (sizeOptions != null && sizeOptions.Count > 0 && sizeOptions.Any())
+                        {
+                            <h2 class="option-title">Kích thước</h2>
+                            <div class="option-group" id="sizeGroup">
 
-                    <h2 class="option-title">Độ cay</h2>
-                    <div class="option-group" id="spicyGroup">
-                        <div class="option-item">Không cay</div>
-                        <div class="option-item">Cay nhẹ</div>
-                        <div class="option-item">Cay nhiều</div>
-                    </div>
-                </div>
+                                @foreach (var topping in sizeOptions)
+                                {
+                                    <div class="option-item" data-price="@topping.price">
+                                        @topping.name
+                                        <span class="topping-price">+@(int.Parse(topping.price).ToString("N0")) đ</span>
+                                    </div>
+                                }
 
-                <div class="toppings-section">
-                    <h2 class="toppings-title">Món kèm</h2>
-                    <div class="topping-item">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="cheese" name="topping" data-price="15000">
-                            <label for="cheese" class="topping-name">Thêm phô mai</label>
-                        </div>
-                        <span class="topping-price">+15.000đ</span>
+                            </div>
+                        }
+
+                        @if (spicyOptions != null && spicyOptions.Count > 0 && spicyOptions.Any())
+                        {
+                            <h2 class="option-title">Độ cay</h2>
+                            <div class="option-group" id="spicyGroup">
+                                @foreach (var topping in spicyOptions)
+                                {
+                                    <div class="option-item" data-price="@topping.price">
+                                        @topping.name
+                                    </div>
+                                    <span class="topping-price">+@(int.Parse(topping.price).ToString("N0")) đ</span>
+                                }
+                            </div>
+                        }
                     </div>
-                    <div class="topping-item">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="bacon" name="topping" data-price="25000">
-                            <label for="bacon" class="topping-name">Thêm thịt xông khói</label>
+                }
+
+
+                <!-- Đồ ăn kèm -->
+                @if (addOnOptions != null && addOnOptions.Count > 0 && addOnOptions.Any())
+                {
+                    @for (int i = 0; i < addOnOptions.Count; i++)
+                    {
+                        var topping = addOnOptions[i];
+                        var checkboxId = $"addon_{i}";
+
+                        <div class="topping-item">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="@checkboxId" name="topping" data-price="@topping.price">
+                                <label for="@checkboxId" class="topping-name">@topping.name</label>
+                            </div>
+                            <span class="topping-price">
+                                +@(int.Parse(topping.price).ToString("N0", new System.Globalization.CultureInfo("vi-VN"))) đ
+                            </span>
                         </div>
-                        <span class="topping-price">+25.000đ</span>
-                    </div>
-                    <div class="topping-item">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="mushrooms" name="topping" data-price="12000">
-                            <label for="mushrooms" class="topping-name">Thêm nấm</label>
-                        </div>
-                        <span class="topping-price">+12.000đ</span>
-                    </div>
-                    <div class="topping-item">
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="sauce" name="topping" data-price="5000">
-                            <label for="sauce" class="topping-name">Thêm sốt</label>
-                        </div>
-                        <span class="topping-price">+5.000đ</span>
-                    </div>
-                </div>
+                    }
+                }
 
                 <div class="quantity-section">
                     <div class="quantity-title">Số lượng</div>

@@ -25,7 +25,6 @@ public class RequestResponseLoggingMiddleware
         bool shouldLog = _options.IncludedPaths.Count == 0 ||
                          _options.IncludedPaths.Any(p => path.StartsWith(p));
 
-        _logger.LogInformation($"Included paths: {_options.IncludedPaths}");
         _logger.LogInformation($"Path: {path}");
         _logger.LogInformation($"Should log: {shouldLog}");
         _logger.LogInformation($"Enable request body logging: {_options.EnableRequestBodyLogging}");

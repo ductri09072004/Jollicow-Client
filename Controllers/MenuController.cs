@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
 using Microsoft.Extensions.Caching.Memory;
 using Jollicow.Services;
+using Jollicow.Models;
 
 namespace Jollicow.Controllers
 {
@@ -17,19 +18,24 @@ namespace Jollicow.Controllers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<MenuController> _logger;
         private readonly IMemoryCache _cache;
-        private readonly TokenService _tokenService;
         private const int CACHE_DURATION_MINUTES = 30;
+
+        // Serivce
+        private readonly TokenService _tokenService;
+        private readonly ToppingService _toppingService;
 
         public MenuController(
             IHttpClientFactory httpClientFactory,
             ILogger<MenuController> logger,
             TokenService tokenService,
-            IMemoryCache cache)
+            IMemoryCache cache,
+            ToppingService toppingService)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
             _cache = cache;
             _tokenService = tokenService;
+            _toppingService = toppingService;
         }
 
         // Đường dẫn tạo mã hóa
@@ -177,8 +183,14 @@ namespace Jollicow.Controllers
                 return NotFound();
             }
 
+            // Lấy topping
+            var toppings = await _toppingService.GetToppings(id_dishes);
+            _logger.LogInformation("Toppings: {@Toppings}", toppings);
+
             ViewData["IdTable"] = id_table ?? "";
             ViewData["RestaurantId"] = restaurant_id ?? "";
+            ViewData["Toppings"] = toppings ?? new List<ToppingModels>();
+
             return View(dish);
         }
     }
