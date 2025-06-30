@@ -20,6 +20,9 @@ builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
 
+// Middleware
+app.UseMiddleware<RequestResponseLoggingMiddleware>();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

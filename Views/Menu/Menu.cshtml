@@ -20,11 +20,11 @@
             <!-- Carousel Items -->
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="~/lib/images/banner2.jpg" alt="Banner 1" class="d-block w-100"
+                    <img src="~/lib/images/banner1.png" alt="Banner 1" class="d-block w-100"
                         style="height: 164px; object-fit: cover; border-radius: 6px;">
                 </div>
                 <div class="carousel-item">
-                    <img src="~/lib/images/banner1.png" alt="Banner 2" class="d-block w-100"
+                    <img src="~/lib/images/banner2.png" alt="Banner 2" class="d-block w-100"
                         style="height: 164px; object-fit: cover; border-radius: 6px;">
                 </div>
                 <div class="carousel-item">
@@ -51,11 +51,21 @@
         <div class="scroll-slider">
             @foreach (var cate in Model.Categories)
             {
-                var isActive = Model.SelectedCategoryID == cate.id_category ? "slider-btn-active" : "slider-btn";
-                <a style="text-decoration: none;"
-                    href="@Url.Action("Menu", new { acsc = Context.Request.Query["acsc"], id_category = cate.id_category, restaurant_id = Model.RestaurantId })">
-                    <button class="@isActive">@cate.name</button>
-                </a>
+                if (cate != null)
+                {
+                    var isActive = Model.SelectedCategoryID == cate.id_category ? "slider-btn-active" : "slider-btn";
+                    <a style="text-decoration: none;"
+                        href="@Url.Action("Menu", new { acsc = Context.Request.Query["acsc"], id_category = cate.id_category, restaurant_id = Model.RestaurantId })">
+                        <button class="@isActive">@cate.name</button>
+                    </a>
+                }
+                else
+                {
+                    <a style="text-decoration: none;"
+                        href="@Url.Action("Menu", new { acsc = Context.Request.Query["acsc"], restaurant_id = Model.RestaurantId })">
+                        <button class="slider-btn">All</button>
+                    </a>
+                }
             }
         </div>
 

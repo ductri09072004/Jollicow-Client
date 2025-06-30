@@ -18,7 +18,6 @@ namespace Jollicow.Controllers
         private readonly ILogger<MenuController> _logger;
         private readonly IMemoryCache _cache;
         private readonly TokenService _tokenService;
-        private const string CATEGORIES_CACHE_KEY = "all_categories";
         private const int CACHE_DURATION_MINUTES = 30;
 
         public MenuController(
@@ -44,7 +43,7 @@ namespace Jollicow.Controllers
 
             var token = _tokenService.GenerateToken(id_table, restaurant_id);
             var url = Url.Action("Menu", new { acsc = token }); // Access code
-            return Content($"Link access menu: <a href='{url}'>{url}</a>", "text/html");
+            return Redirect(url!);
         }
 
         [HttpGet("/menu")]
@@ -102,15 +101,25 @@ namespace Jollicow.Controllers
         {
             var firebaseService = new FirebaseService();
 
-            var allCategories = await _cache.GetOrCreateAsync(CATEGORIES_CACHE_KEY, async entry =>
+            // Make cache key restaurant-specific
+            var categoriesCacheKey = $"categories_{restaurant_id}";
+
+            _logger.LogInformation("Loading categories for restaurant: {RestaurantId} with cache key: {CacheKey}", restaurant_id, categoriesCacheKey);
+
+            var allCategories = await _cache.GetOrCreateAsync(categoriesCacheKey, async entry =>
              {
                  entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(CACHE_DURATION_MINUTES);
+                 _logger.LogInformation("Cache miss for restaurant {RestaurantId}, fetching from Firebase", restaurant_id);
                  return await firebaseService.GetCategoriesByRestaurantIdAsync(restaurant_id);
              });
+
+            _logger.LogInformation("Loaded {CategoryCount} categories for restaurant {RestaurantId}: {@Categories}",
+                allCategories.Count, restaurant_id, allCategories.Select(c => new { c.id_category, c.name }));
 
             if (string.IsNullOrEmpty(id_category) && allCategories.Any())
             {
                 id_category = allCategories.First().id_category;
+                _logger.LogInformation("No category selected, defaulting to first category: {CategoryId}", id_category);
             }
 
             var dishes = await firebaseService.GetAllDishesAsync();
@@ -119,7 +128,8 @@ namespace Jollicow.Controllers
             _logger.LogInformation("Dishes: {@Dishes}, restaurant_id: {@RestaurantId}", dishes, restaurant_id);
             dishes = dishes.Where(d => d.id_category == id_category && d.restaurant_id == restaurant_id).ToList();
 
-
+            _logger.LogInformation("Filtered dishes for category {CategoryId} and restaurant {RestaurantId}: {DishCount} dishes",
+                id_category, restaurant_id, dishes.Count);
 
             var menuViewModel = new MenuViewModel
             {
@@ -130,8 +140,8 @@ namespace Jollicow.Controllers
                 IdTable = id_table,
             };
 
-            ViewData["IdTable"] = id_table;
-            ViewData["RestaurantId"] = restaurant_id;
+            ViewData["IdTable"] = id_table ?? "";
+            ViewData["RestaurantId"] = restaurant_id ?? "";
 
             return View("Menu", menuViewModel);
         }
@@ -167,8 +177,8 @@ namespace Jollicow.Controllers
                 return NotFound();
             }
 
-            ViewData["IdTable"] = id_table;
-            ViewData["RestaurantId"] = restaurant_id;
+            ViewData["IdTable"] = id_table ?? "";
+            ViewData["RestaurantId"] = restaurant_id ?? "";
             return View(dish);
         }
     }
