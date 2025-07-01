@@ -18,11 +18,12 @@ builder.Services.AddSession(options =>
 builder.Services.AddDataProtection();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<ToppingService>();
+builder.Services.AddScoped<OrderService>();
 
 var app = builder.Build();
 
 // Middleware
-app.UseMiddleware<RequestResponseLoggingMiddleware>();
+// app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

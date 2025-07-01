@@ -1,106 +1,79 @@
-﻿@{
-    Layout = "_Layout";
-}
+﻿@model MenuViewModel
 
-@model MenuViewModel
-
-
-@{
-    <div class="body-container">
-        <!-- Banner Carousel -->
-        <div id="bannerCarousel" class="carousel slide mb-3" data-bs-ride="carousel" data-bs-interval="3000">
-            <!-- Carousel Indicators -->
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-            </div>
-
-            <!-- Carousel Items -->
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="~/lib/images/banner1.png" alt="Banner 1" class="d-block w-100"
-                        style="height: 164px; object-fit: cover; border-radius: 6px;">
-                </div>
-                <div class="carousel-item">
-                    <img src="~/lib/images/banner2.png" alt="Banner 2" class="d-block w-100"
-                        style="height: 164px; object-fit: cover; border-radius: 6px;">
-                </div>
-                <div class="carousel-item">
-                    <img src="~/lib/images/banner3.png" alt="Banner 3" class="d-block w-100"
-                        style="height: 164px; object-fit: cover; border-radius: 6px;">
-                </div>
-                <div class="carousel-item">
-                    <img src="~/lib/images/banner4.png" alt="Banner 4" class="d-block w-100"
-                        style="height: 164px; object-fit: cover; border-radius: 6px;">
-                </div>
-            </div>
-
-            <!-- Carousel Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+<div class="body-container">
+    <!-- Banner Carousel -->
+    <div id="bannerCarousel" class="carousel slide mb-3" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
 
-        <div class="scroll-slider">
-            @foreach (var cate in Model.Categories)
-            {
-                if (cate != null)
-                {
-                    var isActive = Model.SelectedCategoryID == cate.id_category ? "slider-btn-active" : "slider-btn";
-                    <a style="text-decoration: none;"
-                        href="@Url.Action("Menu", new { acsc = Context.Request.Query["acsc"], id_category = cate.id_category, restaurant_id = Model.RestaurantId })">
-                        <button class="@isActive">@cate.name</button>
-                    </a>
-                }
-                else
-                {
-                    <a style="text-decoration: none;"
-                        href="@Url.Action("Menu", new { acsc = Context.Request.Query["acsc"], restaurant_id = Model.RestaurantId })">
-                        <button class="slider-btn">All</button>
-                    </a>
-                }
-            }
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/lib/images/banner1.png" alt="Banner 1" class="d-block w-100"
+                    style="height: 164px; object-fit: cover; border-radius: 6px;">
+            </div>
+            <div class="carousel-item">
+                <img src="~/lib/images/banner2.png" alt="Banner 2" class="d-block w-100"
+                    style="height: 164px; object-fit: cover; border-radius: 6px;">
+            </div>
+            <div class="carousel-item">
+                <img src="~/lib/images/banner3.png" alt="Banner 3" class="d-block w-100"
+                    style="height: 164px; object-fit: cover; border-radius: 6px;">
+            </div>
+            <div class="carousel-item">
+                <img src="~/lib/images/banner4.png" alt="Banner 4" class="d-block w-100"
+                    style="height: 164px; object-fit: cover; border-radius: 6px;">
+            </div>
         </div>
 
-        <div class="dish-list d-flex flex-column gap-3 mb-2">
-            @foreach (var dish in Model.Dishes)
-            {
-                <a href="@Url.Action("DishDetail", new { acsc = Context.Request.Query["acsc"], id_dishes = dish.id_dishes })"
-                    style="text-decoration: none;">
-                    @await Component.InvokeAsync("DishCard", new {
-                    id_categorygory = dish.id_category,
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Slider Button Category -->
+    <div class="scroll-slider">
+        <!-- All button -->
+        <a style="text-decoration: none;"
+            href="@Url.Action("Menu", new { acsc = Context.Request.Query["acsc"], restaurant_id = Model.RestaurantId })">
+            <button class="@(Model.SelectedCategoryID == null ? "slider-btn-active" : "slider-btn")">All</button>
+        </a>
+
+        @foreach (var cate in Model.Categories)
+        {
+            var isActive = Model.SelectedCategoryID == cate.id_category ? "slider-btn-active" : "slider-btn";
+            <a style="text-decoration: none;"
+                href="@Url.Action("Menu", new { acsc = Context.Request.Query["acsc"], id_category = cate.id_category, restaurant_id = Model.RestaurantId })">
+                <button class="@isActive">@cate.name</button>
+            </a>
+        }
+    </div>
+
+    <!-- Dish List -->
+    <div class="dish-list d-flex flex-column gap-3 mb-2">
+        @foreach (var dish in Model.Dishes)
+        {
+            <a href="@Url.Action("DishDetail", new { acsc = Context.Request.Query["acsc"], id_dishes = dish.id_dishes })"
+                style="text-decoration: none;">
+                @await Component.InvokeAsync("DishCard", new {
+                id_category = dish.id_category,
                         id_dishes = dish.id_dishes,
                         restaurant_id = Model.RestaurantId,
                         name = dish.name,
                         price = dish.price,
                         image = dish.image,
                         status = dish.status
-                            })
+                        })
         </a>
                 }
     </div>
-
 </div>
-}
-
-<script>
-    const track = document.querySelector('.slider-track');
-    const btnCount = document.querySelectorAll('.slider-btn').length;
-    const btnWidth = 90; // min-width + gap approx
-    let index = 0;
-
-    setInterval(() => {
-        index++;
-        if (index > btnCount - 3) { // giả sử hiển thị 3 button 1 lúc
-            index = 0;
-        }
-    }, 3000);
-</script>

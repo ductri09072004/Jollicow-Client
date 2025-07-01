@@ -28,8 +28,14 @@ else
                 <div class="mb-2"><strong>Tên tài khoản:</strong> @accountName</div>
                 <div class="mb-2"><strong>Số tiền:</strong> @amount.ToString("N0") VNĐ</div>
                 <div class="mb-2"><strong>Nội dung chuyển khoản:</strong> @description</div>
-                <a href="@Url.Action("CartDetail", "Cart", new { acsc = Context.Request.Query["acsc"] })"
-                    class="btn btn-secondary mt-3">Quay lại giỏ hàng</a>
+                <div class="action-field d-flex flex-row gap-3">
+                    <a href="@Url.Action("CartDetail", "Cart", new { acsc = Context.Request.Query["acsc"] })"
+                        class="btn btn-secondary mt-3">Quay lại giỏ hàng</a>
+                    <form asp-controller="Payment" asp-action="Create" method="post">
+                        <input type="hidden" name="acsc" value="@Context.Request.Query["acsc"]" />
+                        <button type="submit" class="btn btn-success">Đã thanh toán</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

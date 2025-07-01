@@ -467,25 +467,29 @@
 
         // Size selection
         const sizeGroup = document.getElementById('sizeGroup');
-        const sizeOptions = sizeGroup.querySelectorAll('.option-item');
-        sizeOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                sizeOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                selectedSizePrice = parseInt(option.dataset.price);
-                updateTotalPrice();
+        if (sizeGroup) {
+            const sizeOptions = sizeGroup.querySelectorAll('.option-item');
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedSizePrice = parseInt(option.dataset.price);
+                    updateTotalPrice();
+                });
             });
-        });
+        }
 
         // Spicy selection
         const spicyGroup = document.getElementById('spicyGroup');
-        const spicyOptions = spicyGroup.querySelectorAll('.option-item');
-        spicyOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                spicyOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
+        if (spicyGroup) {
+            const spicyOptions = spicyGroup.querySelectorAll('.option-item');
+            spicyOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    spicyOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
             });
-        });
+        }
 
         // Toppings selection
         document.querySelectorAll('input[name="topping"]').forEach(checkbox => {
