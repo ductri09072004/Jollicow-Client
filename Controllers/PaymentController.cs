@@ -28,7 +28,7 @@ namespace Jollicow.Controllers
             {
                 AccountName = "Trần Hữu Minh Trí",
                 AccountNumber = "0389105492",
-                Bank = "MB Bank - Ngân Hàng Quân Đội",
+                Bank = "MB",
             };
             // Lấy thông tin từ mã hóa (giống như CartController và MenuController)
             var decrypted = _tokenService.TryDecrypt(acsc);

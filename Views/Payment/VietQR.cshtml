@@ -4,13 +4,13 @@
     var idTable = ViewData["IdTable"]?.ToString() ?? "";
     var restaurantId = ViewData["RestaurantId"]?.ToString() ?? "";
     var paymentInfo = ViewData["PaymentInfo"] as PaymentInfo;
-    var amount = ViewData["Amount"] != null ? Convert.ToDecimal(ViewData["Amount"]) : 0m;
+    var amount = ViewData["Amount"] != null ? Convert.ToInt32(ViewData["Amount"]) : 0;
     var description = ViewData["Description"]?.ToString() ?? "";
-    var accountName = ViewData["AccountName"]?.ToString() ?? "";
-    var accountNumber = ViewData["AccountNumber"]?.ToString() ?? "";
-    var bank = ViewData["Bank"]?.ToString() ?? "";
-    var encodedDescription = WebUtility.UrlEncode(description);
-    var encodedAccountName = WebUtility.UrlEncode(accountName);
+    var accountName = paymentInfo?.AccountName ?? "";
+
+    @* Mã hóa để tránh lỗi khi chuyển khoản *@
+    var encodedName = WebUtility.UrlEncode(accountName);
+    var encodedDesc = WebUtility.UrlEncode(description);
 }
 @if (string.IsNullOrEmpty(idTable) || string.IsNullOrEmpty(restaurantId))
 {
@@ -23,27 +23,18 @@ else
             <div class="card-body text-center">
                 <h3 class="mb-3 fw-bold">Chuyển khoản VietQR</h3>
                 <div class="mb-3">
-                    <img src="https://img.vietqr.io/image/MB-@accountNumber-compact2.png" alt="VietQR" class="img-fluid"
-                        style="max-width: 300px;"
+                    <img src="https://img.vietqr.io/image/MB-0389105492-print.jpg?amount=@amount&addInfo=@encodedDesc&accountName=@encodedName"
+                        alt="VietQR" class="img-fluid" style="; max-height: 400px;"
                         onerror="this.onerror=null;this.src='https://img.vietqr.io/image/VCB-123456789-compact2.png?amount=100000&addInfo=Demo';" />
                 </div>
-                <p class="fw-bold" style="font-size: 20px;">Vui lòng chuyển khoản theo thông tin sau:</p>
-                <div class="d-flex flex-column" style="gap: 0">
-                    <p style="margin-bottom: 1px;">Ngân hàng: @paymentInfo?.Bank</p>
-                    <p style="margin-bottom: 1px;">Số tài khoản: @paymentInfo?.AccountNumber</p>
-                    <p style="margin-bottom: 1px;">Tên tài khoản: @paymentInfo?.AccountName</p>
-                    <p style="margin-bottom: 1px;">Số tiền: @ViewData["Amount"] VNĐ</p>
-                    <p style="margin-bottom: 1px;">Nội dung chuyển khoản: @ViewData["Description"]</p>
-                </div>
-
 
                 <div class="action-field d-flex flex-column gap-3">
-                    <a href="@Url.Action("CartDetail", "Cart", new { acsc = Context.Request.Query["acsc"] })"
-                        class="btn btn-secondary mt-3">Quay lại giỏ hàng</a>
-                    <form asp-controller="Payment" asp-action="Create" method="post">
+                    <form asp-controller="Payment mt-3" asp-action="Create" method="post">
                         <input type="hidden" name="acsc" value="@Context.Request.Query["acsc"]" />
-                        <button type="submit" class="btn btn-success">Đã thanh toán</button>
+                        <button type="submit" class="btn btn-success w-100">Đã thanh toán</button>
                     </form>
+                    <a href="@Url.Action("CartDetail", "Cart", new { acsc = Context.Request.Query["acsc"] })"
+                        class="btn btn-secondary">Quay lại giỏ hàng</a>
                 </div>
             </div>
         </div>
