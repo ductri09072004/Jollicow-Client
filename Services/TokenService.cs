@@ -17,7 +17,7 @@ public class TokenService
         return _dataProtector.Protect(raw);
     }
 
-    public (string tableId, string restaurantId)? TryDecrypt(string token, int validMinutes = 5)
+    public (string tableId, string restaurantId)? TryDecrypt(string token, int validMinutes = 30)
     {
         try
         {

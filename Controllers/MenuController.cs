@@ -185,7 +185,7 @@ namespace Jollicow.Controllers
 
             // Lấy topping
             var toppings = await _toppingService.GetToppings(id_dishes);
-            _logger.LogInformation("Toppings: {@Toppings}", toppings);
+            _logger.LogInformation("Toppings: {@Toppings}", toppings.Select(t => new { t.id_topping, t.name_details, t.options }));
 
             ViewData["IdTable"] = id_table ?? "";
             ViewData["RestaurantId"] = restaurant_id ?? "";

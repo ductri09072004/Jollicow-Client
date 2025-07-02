@@ -22,7 +22,6 @@ namespace Jollicow.Models
             {
                 "kích thước" => ToppingType.Size,
                 "độ cay" => ToppingType.Spice,
-                "đồ ăn kèm" => ToppingType.AddOn,
                 _ => ToppingType.Other,
             };
         }
@@ -33,7 +32,6 @@ namespace Jollicow.Models
     {
         Size,
         Spice,
-        AddOn,
         Other,
     }
 }

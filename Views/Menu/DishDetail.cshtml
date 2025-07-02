@@ -18,7 +18,7 @@
     var toppings = ViewData["Toppings"] as List<ToppingModels> ?? new List<ToppingModels>();
     var sizeOptions = toppings?.FirstOrDefault(t => t.Type == ToppingType.Size)?.options ?? new List<ToppingOptions>();
     var spicyOptions = toppings?.FirstOrDefault(t => t.Type == ToppingType.Spice)?.options ?? new List<ToppingOptions>();
-    var addOnOptions = toppings?.FirstOrDefault(t => t.Type == ToppingType.AddOn)?.options ?? new List<ToppingOptions>();
+    var toppingGroups = toppings?.Where(t => t.Type == ToppingType.Other).ToList() ?? new List<ToppingModels>();
 }
 
 @model DishesModels
@@ -353,23 +353,24 @@
                 }
 
 
-                <!-- Đồ ăn kèm -->
-                @if (addOnOptions != null && addOnOptions.Count > 0 && addOnOptions.Any())
-                {
-                    @for (int i = 0; i < addOnOptions.Count; i++)
-                    {
-                        var topping = addOnOptions[i];
-                        var checkboxId = $"addon_{i}";
 
-                        <div class="topping-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="@checkboxId" name="topping" data-price="@topping.price">
-                                <label for="@checkboxId" class="topping-name">@topping.name</label>
+                @if (toppingGroups != null && toppingGroups.Any())
+                {
+                    foreach (var group in toppingGroups)
+                    {
+                        <h5 class="dish-name fw-bold" style="font-size: 16px;">@group.name_details</h5>
+
+                        foreach (var topping in group.options)
+                        {
+                            <div class="topping-item">
+                                <div class="checkbox-wrapper">
+                                    <input type="checkbox" id="@topping.id_option" name="topping" data-price="@topping.price">
+                                    <label for="@topping.id_option" class="topping-name">@topping.name</label>
+                                </div>
+                                <span class="topping-price">+@(int.Parse(topping.price).ToString("N0")) đ</span>
                             </div>
-                            <span class="topping-price">
-                                +@(int.Parse(topping.price).ToString("N0", new System.Globalization.CultureInfo("vi-VN"))) đ
-                            </span>
-                        </div>
+                        }
+                        <div class="mb-2"></div>
                     }
                 }
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Jollicow.Services;
+using Jollicow.Models;
 
 namespace Jollicow.Controllers
 {
@@ -21,6 +22,14 @@ namespace Jollicow.Controllers
         [HttpGet]
         public async Task<IActionResult> VietQR(string acsc)
         {
+            // Viết hàm get payment info từ db
+            // Data tạm
+            var paymentInfo = new PaymentInfo
+            {
+                AccountName = "Trần Hữu Minh Trí",
+                AccountNumber = "0389105492",
+                Bank = "MB Bank - Ngân Hàng Quân Đội",
+            };
             // Lấy thông tin từ mã hóa (giống như CartController và MenuController)
             var decrypted = _tokenService.TryDecrypt(acsc);
             if (decrypted == null)
@@ -42,10 +51,8 @@ namespace Jollicow.Controllers
             ViewData["IdTable"] = idTable;
             ViewData["RestaurantId"] = restaurantId;
             ViewData["Amount"] = cartTotal;
-            ViewData["AccountName"] = "Jollicow Restaurant";
-            ViewData["AccountNumber"] = "0389105492";
-            ViewData["Bank"] = "MB";
-            ViewData["Description"] = $"Table {idTable} - Restaurant {restaurantId}";
+            ViewData["PaymentInfo"] = paymentInfo;
+            ViewData["Description"] = $"Table {idTable} - Thanh toán hóa đơn";
             return View();
         }
 
