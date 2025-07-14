@@ -28,8 +28,8 @@ else
                         onerror="this.onerror=null;this.src='https://img.vietqr.io/image/VCB-123456789-compact2.png?amount=100000&addInfo=Demo';" />
                 </div>
 
-                <div class="action-field d-flex flex-column gap-3">
-                    <form asp-controller="Payment mt-3" asp-action="Create" method="post">
+                <div class="action-field d-flex flex-column gap-3  mt-3">
+                    <form asp-controller="Payment" asp-action="Create" method="post">
                         <input type="hidden" name="acsc" value="@Context.Request.Query["acsc"]" />
                         <button type="submit" class="btn btn-success w-100">Đã thanh toán</button>
                     </form>
