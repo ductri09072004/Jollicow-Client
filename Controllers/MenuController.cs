@@ -84,7 +84,7 @@ namespace Jollicow.Controllers
                 restaurant_id = restaurant_id
             };
 
-            var response = await client.PostAsJsonAsync("https://jollicowfe-production.up.railway.app/api/tables/checkauth", postData);
+            var response = await client.PostAsJsonAsync("https://jollicowfe-production.up.railway.app/api/admin/tables/checkauth", postData);
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<AuthModels>();
