@@ -15,7 +15,7 @@ builder.Services.AddSession(options =>
 });
 
 // Service Mã hóa
-builder.Services.AddDataProtection();
+// builder.Services.AddDataProtection(); // Tạm thời tắt mã hóa để kiểm tra lỗi
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<ToppingService>();
 builder.Services.AddScoped<OrderService>();
