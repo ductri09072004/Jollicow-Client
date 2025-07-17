@@ -15,9 +15,6 @@ builder.Services.AddSession(options =>
 });
 
 // Service Mã hóa
-// builder.Services.AddDataProtection()
-//     .PersistKeysToFileSystem(new DirectoryInfo("keys")) // Thư mục lưu key, đảm bảo tồn tại và dùng chung giữa các instance
-//     .SetApplicationName("JollicowApp");
 builder.Services.AddDataProtection();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<ToppingService>();
