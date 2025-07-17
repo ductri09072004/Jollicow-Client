@@ -153,7 +153,7 @@
                     id_restaurant: restaurant_id
                 };
 
-                const response = await apiFetch('https://jollicowfe-production.up.railway.app/api/carts/filter', 'POST', payload)
+                const response = await apiFetch('https://jollicowfe-production.up.railway.app/api/admin/carts/filter', 'POST', payload)
                 const cartItems = response.carts || [];
                 console.log("cartItems", cartItems);
                 if (cartItems.length === 0) {
