@@ -8,61 +8,61 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Jollicow
 build_property.RootNamespace = Jollicow
-build_property.ProjectDir = C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow\
+build_property.ProjectDir = E:\Study\Jollicow-Client\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\ADMIN\OneDrive\Documents\CodingHW\WebNC\WebL\Jollicow
+build_property.MSBuildProjectDirectory = E:\Study\Jollicow-Client
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Cart/CartDetail.cshtml]
+[E:/Study/Jollicow-Client/Views/Cart/CartDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxDYXJ0RGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Menu/DishDetail.cshtml]
+[E:/Study/Jollicow-Client/Views/Menu/DishDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxEaXNoRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Menu/Menu.cshtml]
+[E:/Study/Jollicow-Client/Views/Menu/Menu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxNZW51LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Payment/Confirmation.cshtml]
+[E:/Study/Jollicow-Client/Views/Payment/Confirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxDb25maXJtYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Payment/Create.cshtml]
+[E:/Study/Jollicow-Client/Views/Payment/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Payment/VietQR.cshtml]
+[E:/Study/Jollicow-Client/Views/Payment/VietQR.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxWaWV0UVIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Shared/Components/DishCard/Default.cshtml]
+[E:/Study/Jollicow-Client/Views/Shared/Components/DishCard/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcRGlzaENhcmRcRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Shared/Components/PaymentMethod/Default.cshtml]
+[E:/Study/Jollicow-Client/Views/Shared/Components/PaymentMethod/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUGF5bWVudE1ldGhvZFxEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Shared/Error.cshtml]
+[E:/Study/Jollicow-Client/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Shared/_ValidationScriptsPartial.cshtml]
+[E:/Study/Jollicow-Client/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/_ViewImports.cshtml]
+[E:/Study/Jollicow-Client/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/_ViewStart.cshtml]
+[E:/Study/Jollicow-Client/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/OneDrive/Documents/CodingHW/WebNC/WebL/Jollicow/Views/Shared/_Layout.cshtml]
+[E:/Study/Jollicow-Client/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-faoq6hfac0

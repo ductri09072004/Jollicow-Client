@@ -35,7 +35,7 @@ async function updateCartTotalUI() {
     // console.log("payload:", payload);
 
     const response = await apiFetch(
-      "https://jollicowfe-production.up.railway.app/api/carts/filter",
+      "https://jollicowbe-admin.up.railway.app/api/carts/filter",
       "POST",
       payload
     );
