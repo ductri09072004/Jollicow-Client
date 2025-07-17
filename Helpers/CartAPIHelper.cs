@@ -24,7 +24,7 @@ public class CartAPIHelper
                 id_restaurant = restaurantId
             };
 
-            var response = await _httpClient.PostAsJsonAsync("https://jollicowfe-production.up.railway.app/api/admin/carts/filter", payload);
+            var response = await _httpClient.PostAsJsonAsync("https://jollicowfe-production.up.railway.app/api/carts/filter", payload);
 
             if (response.IsSuccessStatusCode)
             {
