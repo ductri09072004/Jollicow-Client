@@ -30,7 +30,7 @@ public class ToppingService
         _logger.LogInformation("Dishes ID: {@DishesId}", id_dishes);
         _logger.LogInformation("Request of GetToppings: {@Request}", request);
 
-        var url = $"https://jollicowfe-production.up.railway.app/api/admin/toppings/filter";
+        var url = $"https://jollicowfe-production.up.railway.app/api/toppings/filter";
         var response = await _httpClient.PostAsJsonAsync(url, request);
 
         if (response.StatusCode == HttpStatusCode.NotFound)
